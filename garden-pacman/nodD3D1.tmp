@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://porc4vijpftt"]
+
+[node name="Enemy" type="Area2D"]
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

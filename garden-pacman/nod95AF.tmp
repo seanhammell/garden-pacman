@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://porc4vijpftt"]
+
+[ext_resource type="Script" path="res://Node2d.cs" id="1_hg02j"]
+[ext_resource type="Texture2D" uid="uid://ca6ifelagqkix" path="res://clydeeghost.png" id="2_41r1v"]
+[ext_resource type="Script" path="res://Enemymovement.cs" id="3_dmu3i"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_588nk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_41r1v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_hg02j")
+
+[node name="Enemy" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_588nk")
+script = ExtResource("3_dmu3i")

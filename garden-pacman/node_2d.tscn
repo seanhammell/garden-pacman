@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://porc4vijpftt"]
+
+[ext_resource type="Script" path="res://Node2d.cs" id="1_hg02j"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_hg02j")

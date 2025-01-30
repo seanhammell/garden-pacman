@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvs2mv0re8nn8"]
+[gd_scene load_steps=12 format=3 uid="uid://cvs2mv0re8nn8"]
 
 [ext_resource type="Texture2D" uid="uid://cky425211k1qd" path="res://art/4_Seasons_Ground_Tiles.png" id="1_are6y"]
-[ext_resource type="PackedScene" uid="uid://porc4vijpftt" path="res://node_2d.tscn" id="2_28iif"]
+[ext_resource type="Script" path="res://scripts/Enemymovement.cs" id="2_cm2u5"]
+[ext_resource type="Texture2D" uid="uid://chiuori3bql05" path="res://art/Ghosts_(Pac-Man).webp" id="2_i8rcw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_341uk"]
 texture = ExtResource("1_are6y")
@@ -117,6 +118,59 @@ texture = ExtResource("1_are6y")
 [sub_resource type="TileSet" id="TileSet_p3v81"]
 sources/0 = SubResource("TileSetAtlasSource_341uk")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_gey7n"]
+atlas = ExtResource("2_i8rcw")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gc8jn"]
+atlas = ExtResource("2_i8rcw")
+region = Rect2(96, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdhmn"]
+atlas = ExtResource("2_i8rcw")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khfit"]
+atlas = ExtResource("2_i8rcw")
+region = Rect2(0, 96, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2cj23"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gey7n")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gc8jn")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdhmn")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khfit")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p3jc0"]
+
 [node name="Scenario" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -127,5 +181,28 @@ layer_0/tile_data = PackedInt32Array(-458760, 327680, 0, -458759, 327680, 0, -39
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, 55)
 
-[node name="Enemy" parent="." instance=ExtResource("2_28iif")]
-position = Vector2(-148, 186)
+[node name="Enemy" type="Area2D" parent="."]
+position = Vector2(219, 0)
+script = ExtResource("2_cm2u5")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_2cj23")
+animation = &"right"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+shape = SubResource("CircleShape2D_p3jc0")
+
+[node name="RightCollider" type="RayCast2D" parent="Enemy"]
+scale = Vector2(1.56, 1)
+target_position = Vector2(23.0769, 0)
+
+[node name="LeftCollider" type="RayCast2D" parent="Enemy"]
+target_position = Vector2(-32, 0)
+
+[node name="TopCollider" type="RayCast2D" parent="Enemy"]
+target_position = Vector2(0, -31)
+
+[node name="BottomCollider" type="RayCast2D" parent="Enemy"]
+target_position = Vector2(0, 32)

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 
-public partial class Enemymovement : Area2D
+public partial class Enemymovement : CharacterBody2D
 {
 	[Export]
 	public float Speed { get; set; } = 0.5f;
@@ -18,26 +18,63 @@ public partial class Enemymovement : Area2D
 	private RayCast2D bottomCollider;
 	private RayCast2D leftCollider;
 	private RayCast2D rightCollider;
+	private RayCast2D[] colliders;
+	
+	private bool previousRightCollision;
+	private bool previousLeftCollision;
+	private bool previousBottomCollision;
+	private bool previousTopCollision;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		// Set all the colliders
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		topCollider = GetNode<RayCast2D>("TopCollider");
 		bottomCollider = GetNode<RayCast2D>("BottomCollider");
 		leftCollider = GetNode<RayCast2D>("LeftCollider");
 		rightCollider = GetNode<RayCast2D>("RightCollider");
-		changeDirection(3);
+		previousRightCollision = rightCollider.IsColliding();
+		previousLeftCollision = leftCollider.IsColliding();
+		previousTopCollision = topCollider.IsColliding();
+		previousBottomCollision = bottomCollider.IsColliding();
+		colliders = new RayCast2D[] {rightCollider, topCollider, leftCollider, bottomCollider};
+		changeDirection(1);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		// Check surroundings for walls and determine all possible directions of movement
-		List<int> validMoves = findValidMoves();
+		// Check to see if something changed to cause us to change direction
+		bool eventOccurred = false;
+		if (previousRightCollision != isWall(0)) {
+			previousRightCollision = !previousRightCollision;
+			eventOccurred = true;
+		}
+		if (previousTopCollision != isWall(1)) {
+			previousTopCollision = !previousTopCollision;
+			eventOccurred = true;
+		}
+		if (previousLeftCollision != isWall(2)) {
+			previousLeftCollision = !previousLeftCollision;
+			eventOccurred = true;
+		}
+		if (previousBottomCollision != isWall(3)) {
+			previousBottomCollision = !previousBottomCollision;
+			eventOccurred = true;
+		}
+		
+		// maybe take out being able to turn around?
 		
 		// Find the best direction to go
-		//changeDirection(hasPowerUp ? findPlayer(validMoves) : findEdible(validMoves));
+		if (eventOccurred) {
+			// Check surroundings for walls and determine all possible directions of movement
+			List<int> validMoves = findValidMoves();
+			Random random = new Random();
+			changeDirection(validMoves[random.Next(validMoves.Count)]);
+		}
+		
+		// Change random to hasPowerUp ? findPlayer(validMoves) : findEdible(validMoves)
 
 		// Move the sprite
 		move();
@@ -66,51 +103,30 @@ public partial class Enemymovement : Area2D
 	
 	private List<int> findValidMoves() {
 		// Returns a list of all possible directions to go
-		
 		List<int> directions = new List<int>();
 
 		// Find walls
-		if (!isWallRight()) {
-			directions.Add(0);
-		}
-		if (!isWallUp()) {
-			directions.Add(1);
-		}
-		if (!isWallLeft()) {
-			directions.Add(2);
-		}
-		if (!isWallDown()) {
-			directions.Add(3);
+		for (var i = 0; i < 4; i++) {
+			if (!isWall(i)) {
+				directions.Add(i);
+			}
 		}
 		
 		return directions;
 	}
 	
-	private bool isWallRight() {
-		return rightCollider.IsColliding();
-	}
-	
-	private bool isWallUp() {
-		return topCollider.IsColliding();
-	}
-	
-	private bool isWallLeft() {
-		return leftCollider.IsColliding();
-	}
-	
-	private bool isWallDown() {
-		return bottomCollider.IsColliding();
+	private bool isWall(int dir) {
+		return colliders[dir].IsColliding();
 	}
 	
 	private int findPlayer(List<int> validMoves) {
 		// Returns the best direction to go to find the player
 		return 0;
-		
 	}
 	
 	private int findEdible(List<int> validMoves) {
 		// Returns the best direction to go to find the next edible
-		return 1;
+		return 0;
 	}
 	
 	private void move() {

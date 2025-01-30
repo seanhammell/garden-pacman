@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvs2mv0re8nn8"]
+[gd_scene load_steps=19 format=3 uid="uid://cvs2mv0re8nn8"]
 
 [ext_resource type="Texture2D" uid="uid://cky425211k1qd" path="res://art/4_Seasons_Ground_Tiles.png" id="1_are6y"]
 [ext_resource type="Script" path="res://scripts/Enemymovement.cs" id="2_cm2u5"]
 [ext_resource type="Texture2D" uid="uid://chiuori3bql05" path="res://art/Ghosts_(Pac-Man).webp" id="2_i8rcw"]
 [ext_resource type="Script" path="res://scripts/Playermovement.cs" id="4_hwfpi"]
+[ext_resource type="Texture2D" uid="uid://b011s4r5r1c5u" path="res://icon.svg" id="5_vsmwn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_341uk"]
 texture = ExtResource("1_are6y")
@@ -206,6 +207,24 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_htw5s"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8ydj"]
+atlas = ExtResource("5_vsmwn")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_is5vt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8ydj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0gnux"]
+size = Vector2(32, 32)
+
 [node name="Scenario" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -242,17 +261,26 @@ target_position = Vector2(0, -10)
 [node name="BottomCollider" type="RayCast2D" parent="CharacterBody2D"]
 target_position = Vector2(0, 11)
 
-[node name="BottomCollider" type="RayCast2D" parent="Enemy"]
-target_position = Vector2(0, 32)
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(-137, -40)
-script = ExtResource("4_hwfpi")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="CharacterBody2D"]
 position = Vector2(0, -1.81899e-12)
 scale = Vector2(0.34375, 0.354167)
 sprite_frames = SubResource("SpriteFrames_40wam")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CircleShape2D_htw5s")
+
+[node name="Enemy#BottomCollider" type="RayCast2D" parent="."]
+target_position = Vector2(0, 32)
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(-137, -40)
+script = ExtResource("4_hwfpi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+position = Vector2(-1, 0)
+scale = Vector2(0.28125, 0.273438)
+sprite_frames = SubResource("SpriteFrames_is5vt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_0gnux")

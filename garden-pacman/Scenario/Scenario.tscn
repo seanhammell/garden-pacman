@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cvs2mv0re8nn8"]
+[gd_scene load_steps=17 format=3 uid="uid://cvs2mv0re8nn8"]
 
 [ext_resource type="Texture2D" uid="uid://cky425211k1qd" path="res://art/4_Seasons_Ground_Tiles.png" id="1_are6y"]
 [ext_resource type="Script" path="res://scripts/Enemymovement.cs" id="2_cm2u5"]
@@ -190,21 +190,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y400y"]
-atlas = ExtResource("2_i8rcw")
-region = Rect2(96, 96, 96, 96)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_40wam"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y400y")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_htw5s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h8ydj"]
@@ -245,7 +230,7 @@ script = ExtResource("2_cm2u5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_2cj23")
-animation = &"right"
+animation = &"down"
 
 [node name="RightCollider" type="RayCast2D" parent="CharacterBody2D"]
 scale = Vector2(1.56, 1)
@@ -260,11 +245,6 @@ target_position = Vector2(0, -10)
 
 [node name="BottomCollider" type="RayCast2D" parent="CharacterBody2D"]
 target_position = Vector2(0, 11)
-
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="CharacterBody2D"]
-position = Vector2(0, -1.81899e-12)
-scale = Vector2(0.34375, 0.354167)
-sprite_frames = SubResource("SpriteFrames_40wam")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CircleShape2D_htw5s")

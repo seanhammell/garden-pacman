@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cvs2mv0re8nn8"]
+[gd_scene load_steps=23 format=3 uid="uid://cvs2mv0re8nn8"]
 
 [ext_resource type="Texture2D" uid="uid://cky425211k1qd" path="res://art/4_Seasons_Ground_Tiles.png" id="1_are6y"]
 [ext_resource type="Script" path="res://scripts/Enemymovement.cs" id="2_cm2u5"]
@@ -192,7 +192,17 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_htw5s"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y3rg6"]
+size = Vector2(16.7742, 3.22581)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eykj1"]
+size = Vector2(17.3333, 3.22581)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_htbyx"]
+size = Vector2(3.33333, 16.7742)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbiwd"]
+size = Vector2(3.3415, 17.0737)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h8ydj"]
 atlas = ExtResource("5_vsmwn")
@@ -227,32 +237,45 @@ layer_0/tile_data = PackedInt32Array(-458760, 327680, 0, -458759, 327680, 0, -39
 offset = Vector2(0, 55)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(-4, 132)
+position = Vector2(-4, 130)
+scale = Vector2(1.55, 1.55)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("2_cm2u5")
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_2cj23")
 animation = &"down"
 
-[node name="RightCollider" type="RayCast2D" parent="CharacterBody2D"]
-scale = Vector2(1.56, 1)
-target_position = Vector2(7.05129, 0)
+[node name="BottomCollider" type="Area2D" parent="CharacterBody2D"]
 
-[node name="LeftCollider" type="RayCast2D" parent="CharacterBody2D"]
-target_position = Vector2(-11, 0)
+[node name="BottomCollider" type="CollisionShape2D" parent="CharacterBody2D/BottomCollider"]
+position = Vector2(-7.15256e-07, 10)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_y3rg6")
 
-[node name="TopCollider" type="RayCast2D" parent="CharacterBody2D"]
-position = Vector2(0, -1)
-target_position = Vector2(0, -10)
+[node name="TopCollider" type="Area2D" parent="CharacterBody2D"]
 
-[node name="BottomCollider" type="RayCast2D" parent="CharacterBody2D"]
-target_position = Vector2(0, 11)
+[node name="TopCollider" type="CollisionShape2D" parent="CharacterBody2D/TopCollider"]
+position = Vector2(2.38419e-07, -10)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_eykj1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("CircleShape2D_htw5s")
+[node name="RightCollider" type="Area2D" parent="CharacterBody2D"]
+
+[node name="RightCollider" type="CollisionShape2D" parent="CharacterBody2D/RightCollider"]
+position = Vector2(10.3333, 0)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_htbyx")
+
+[node name="LeftCollider" type="Area2D" parent="CharacterBody2D"]
+
+[node name="LeftCollider" type="CollisionShape2D" parent="CharacterBody2D/LeftCollider"]
+position = Vector2(-10.3333, 0)
+scale = Vector2(0.997555, 0.982456)
+shape = SubResource("RectangleShape2D_sbiwd")
 
 [node name="Enemy#BottomCollider" type="RayCast2D" parent="."]
 target_position = Vector2(0, 32)

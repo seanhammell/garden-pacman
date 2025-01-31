@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public partial class Enemymovement : CharacterBody2D
 {
 	[Export]
-	public float Speed { get; set; } = 0.5f;
+	public float Speed { get; set; } = 0.25f;
 	
 	private bool hasPowerUp = false;
 	
@@ -14,60 +14,80 @@ public partial class Enemymovement : CharacterBody2D
 	
 	private int direction; // Direction the enemy is facing; right=0, up=1; left=2; down=3
 	
-	private RayCast2D topCollider;
-	private RayCast2D bottomCollider;
-	private RayCast2D leftCollider;
-	private RayCast2D rightCollider;
-	private RayCast2D[] colliders;
+	private Area2D topCollider;
+	private Area2D bottomCollider;
+	private Area2D leftCollider;
+	private Area2D rightCollider;
+	private Area2D[] colliders;
 	
 	private bool previousRightCollision;
 	private bool previousLeftCollision;
 	private bool previousBottomCollision;
 	private bool previousTopCollision;
+	private bool eventOccurred;
+	private double eventTimer;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		// Set all the colliders
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		topCollider = GetNode<RayCast2D>("TopCollider");
-		bottomCollider = GetNode<RayCast2D>("BottomCollider");
-		leftCollider = GetNode<RayCast2D>("LeftCollider");
-		rightCollider = GetNode<RayCast2D>("RightCollider");
-		previousRightCollision = rightCollider.IsColliding();
-		previousLeftCollision = leftCollider.IsColliding();
-		previousTopCollision = topCollider.IsColliding();
-		previousBottomCollision = bottomCollider.IsColliding();
-		colliders = new RayCast2D[] {rightCollider, topCollider, leftCollider, bottomCollider};
+		topCollider = GetNode<Area2D>("TopCollider");
+		bottomCollider = GetNode<Area2D>("BottomCollider");
+		leftCollider = GetNode<Area2D>("LeftCollider");
+		rightCollider = GetNode<Area2D>("RightCollider");
+		previousRightCollision = rightCollider.GetOverlappingBodies().Count > 0;
+		previousLeftCollision = leftCollider.GetOverlappingBodies().Count > 0;
+		previousTopCollision = topCollider.GetOverlappingBodies().Count > 0;
+		previousBottomCollision = bottomCollider.GetOverlappingBodies().Count > 0;
+		colliders = new Area2D[] {rightCollider, topCollider, leftCollider, bottomCollider};
 		changeDirection(1);
+		eventTimer = 0.0;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		// Check to see if something changed to cause us to change direction
-		bool eventOccurred = false;
-		if (previousRightCollision != isWall(0)) {
-			previousRightCollision = !previousRightCollision;
-			eventOccurred = true;
-		}
-		if (previousTopCollision != isWall(1)) {
-			previousTopCollision = !previousTopCollision;
-			eventOccurred = true;
-		}
-		if (previousLeftCollision != isWall(2)) {
-			previousLeftCollision = !previousLeftCollision;
-			eventOccurred = true;
-		}
-		if (previousBottomCollision != isWall(3)) {
-			previousBottomCollision = !previousBottomCollision;
-			eventOccurred = true;
+		double maxTime = 0.3f;
+		
+		// If event occurred, wait for a bit before testing event occurred again
+		if (eventTimer > maxTime) {
+			eventOccurred = false;
+		} else if (eventOccurred) {
+			eventTimer += delta;
+			previousRightCollision = isWall(0);
+			previousTopCollision = isWall(1);
+			previousLeftCollision = isWall(2);
+			previousBottomCollision = isWall(3);
 		}
 		
-		// maybe take out being able to turn around?
+		// Check to see if something changed to cause us to change direction
+		if (!eventOccurred) {
+			if (previousRightCollision != isWall(0)) {
+				previousRightCollision = !previousRightCollision;
+				eventOccurred = true;
+				eventTimer = 0;
+			}
+			if (previousTopCollision != isWall(1)) {
+				previousTopCollision = !previousTopCollision;
+				eventOccurred = true;
+				eventTimer = 0;
+			}
+			if (previousLeftCollision != isWall(2)) {
+				previousLeftCollision = !previousLeftCollision;
+				eventOccurred = true;
+				eventTimer = 0;
+			}
+			if (previousBottomCollision != isWall(3)) {
+				previousBottomCollision = !previousBottomCollision;
+				eventOccurred = true;
+				eventTimer = 0;
+			}
+		}
+		
 		
 		// Find the best direction to go
-		if (eventOccurred) {
+		if (eventOccurred && eventTimer == 0 || isWall(direction)) {
 			// Check surroundings for walls and determine all possible directions of movement
 			List<int> validMoves = findValidMoves();
 			Random random = new Random();
@@ -104,19 +124,25 @@ public partial class Enemymovement : CharacterBody2D
 	private List<int> findValidMoves() {
 		// Returns a list of all possible directions to go
 		List<int> directions = new List<int>();
+		
+		List<int> oppositeDirection = new List<int>();
 
 		// Find walls
 		for (var i = 0; i < 4; i++) {
+			if (Math.Abs(direction-i) == 2) { // don't go backward
+				oppositeDirection.Add(i);
+				continue;
+			}
 			if (!isWall(i)) {
 				directions.Add(i);
 			}
 		}
 		
-		return directions;
+		return directions.Count > 0 ? directions : oppositeDirection;
 	}
 	
 	private bool isWall(int dir) {
-		return colliders[dir].IsColliding();
+		return colliders[dir].GetOverlappingBodies().Count > 0;
 	}
 	
 	private int findPlayer(List<int> validMoves) {

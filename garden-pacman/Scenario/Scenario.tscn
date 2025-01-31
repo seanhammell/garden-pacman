@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cvs2mv0re8nn8"]
+[gd_scene load_steps=25 format=3 uid="uid://cvs2mv0re8nn8"]
 
 [ext_resource type="Texture2D" uid="uid://cky425211k1qd" path="res://art/4_Seasons_Ground_Tiles.png" id="1_are6y"]
 [ext_resource type="Script" path="res://scripts/Enemymovement.cs" id="2_cm2u5"]
@@ -205,6 +205,9 @@ size = Vector2(3.33333, 16.7742)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sbiwd"]
 size = Vector2(3.3415, 17.0737)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ok66l"]
+size = Vector2(11.6129, 11.6129)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_h8ydj"]
 atlas = ExtResource("5_vsmwn")
 region = Rect2(0, 0, 128, 128)
@@ -274,6 +277,11 @@ shape = SubResource("RectangleShape2D_htbyx")
 position = Vector2(-10.3333, 0)
 scale = Vector2(0.997555, 0.982456)
 shape = SubResource("RectangleShape2D_sbiwd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-7.15256e-07, 0)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_ok66l")
 
 [node name="Enemy#BottomCollider" type="RayCast2D" parent="."]
 target_position = Vector2(0, 32)

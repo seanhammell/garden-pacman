@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cvs2mv0re8nn8"]
+[gd_scene load_steps=24 format=3 uid="uid://cvs2mv0re8nn8"]
 
 [ext_resource type="Texture2D" uid="uid://cky425211k1qd" path="res://art/4_Seasons_Ground_Tiles.png" id="1_are6y"]
 [ext_resource type="Script" path="res://scripts/Enemymovement.cs" id="2_cm2u5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b011s4r5r1c5u" path="res://icon.svg" id="5_vsmwn"]
 [ext_resource type="Script" path="res://Scenario/area_2d.gd" id="6_scrbu"]
 [ext_resource type="Script" path="res://Scenario/left_tp.gd" id="7_ar41n"]
+[ext_resource type="PackedScene" uid="uid://beftj6q5excl1" path="res://Scenario/Item.tscn" id="8_slb8j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_341uk"]
 texture = ExtResource("1_are6y")
@@ -253,21 +254,18 @@ animation = &"down"
 
 [node name="BottomCollider" type="CollisionShape2D" parent="CharacterBody2D/BottomCollider"]
 position = Vector2(-7.15256e-07, 10)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_y3rg6")
 
 [node name="TopCollider" type="Area2D" parent="CharacterBody2D"]
 
 [node name="TopCollider" type="CollisionShape2D" parent="CharacterBody2D/TopCollider"]
 position = Vector2(2.38419e-07, -10)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_eykj1")
 
 [node name="RightCollider" type="Area2D" parent="CharacterBody2D"]
 
 [node name="RightCollider" type="CollisionShape2D" parent="CharacterBody2D/RightCollider"]
 position = Vector2(10.3333, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_htbyx")
 
 [node name="LeftCollider" type="Area2D" parent="CharacterBody2D"]
@@ -306,6 +304,19 @@ script = ExtResource("7_ar41n")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftTP"]
 position = Vector2(-267, -1)
 shape = SubResource("RectangleShape2D_p3m1s")
+
+[node name="Items" type="Node" parent="."]
+
+[node name="Item4" parent="Items" instance=ExtResource("8_slb8j")]
+position = Vector2(-224, 0)
+
+[node name="Item" parent="Items" instance=ExtResource("8_slb8j")]
+
+[node name="Item2" parent="Items" instance=ExtResource("8_slb8j")]
+position = Vector2(0, 196)
+
+[node name="Item3" parent="Items" instance=ExtResource("8_slb8j")]
+position = Vector2(0, -156)
 
 [connection signal="body_entered" from="RightTP" to="RightTP" method="_on_body_entered"]
 [connection signal="body_entered" from="LeftTP" to="LeftTP" method="_on_body_entered"]

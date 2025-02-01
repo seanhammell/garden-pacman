@@ -5,24 +5,107 @@ public partial class Playermovement : CharacterBody2D
 {
 	[Export]
 	public float Speed = 10000.0f;
+	[Export]
+	public int rayLength = 15;
 
+	private RayCast2D topRightCast;
+	private RayCast2D topLeftCast;
+	private RayCast2D bottomRightCast;
+	private RayCast2D bottomLeftCast;
+	private RayCast2D rightTopCast;
+	private RayCast2D rightBottomCast;
+	private RayCast2D leftTopCast;
+	private RayCast2D leftBottomCast;
+
+
+	public override void _Ready()
+	{
+		base._Ready();
+		topRightCast = GetNode<RayCast2D>("topRightCast");
+		topLeftCast = GetNode<RayCast2D>("topLeftCast");
+		bottomRightCast = GetNode<RayCast2D>("bottomRightCast");
+		bottomLeftCast = GetNode<RayCast2D>("bottomLeftCast");
+		rightTopCast = GetNode<RayCast2D>("rightTopCast");
+		rightBottomCast = GetNode<RayCast2D>("rightBottomCast");
+		leftTopCast = GetNode<RayCast2D>("leftTopCast");
+		leftBottomCast = GetNode<RayCast2D>("leftBottomCast");
+
+		topRightCast.TargetPosition = new Vector2(0, rayLength);
+		topLeftCast.TargetPosition = new Vector2(0, rayLength);
+		bottomRightCast.TargetPosition = new Vector2(0, rayLength);
+		bottomLeftCast.TargetPosition = new Vector2(0, rayLength);
+		rightTopCast.TargetPosition = new Vector2(0, rayLength);
+		rightBottomCast.TargetPosition = new Vector2(0, rayLength);
+		leftTopCast.TargetPosition = new Vector2(0, rayLength);
+		leftBottomCast.TargetPosition = new Vector2(0, rayLength);
+		GD.Print(topRightCast.TargetPosition);
+		GD.Print(leftTopCast.TargetPosition);
+		GD.Print(rightTopCast.TargetPosition);
+		GD.Print(leftBottomCast.TargetPosition);
+
+
+	}
 	public override void _PhysicsProcess(double delta)
 	{
+
 		Vector2 velocity = Velocity;
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if(direction!=Vector2.Zero)
+		if (direction.X!=0)
 		{
+			
+			
+			if (rightTopCast.IsColliding() || rightBottomCast.IsColliding())
+			{
+				if (direction.X > 0)
+				{
+
+					direction.X = 0;
+				}
+			}
+			if (leftTopCast.IsColliding() || leftBottomCast.IsColliding())
+			{
+				if (direction.X < 0)
+				{
+					
+					direction.X = 0;
+				}
+			}
 			velocity.X = direction.X * Speed * (float)delta;
-			velocity.Y = direction.Y * Speed * (float)delta;
+			
 		}
 		else
 		{
-			velocity.X = (float) Mathf.MoveToward(Velocity.X,Velocity.X,delta*Speed);
-			velocity.Y = (float) Mathf.MoveToward(Velocity.Y,Velocity.Y,delta*Speed);
+			velocity.X = (float)Mathf.MoveToward(Velocity.X, Velocity.X, delta * Speed);
 		}
-		
-		
+
+		if(direction.Y!=0)
+		{
+			
+			if (topRightCast.IsColliding() || topLeftCast.IsColliding())
+			{
+				if (direction.Y < 0)
+				{
+					direction.Y = 0;
+				}
+			}
+			if (bottomRightCast.IsColliding() || bottomLeftCast.IsColliding())
+			{
+				if (direction.Y > 0)
+				{
+					direction.Y = 0;
+				}
+			}
+			velocity.Y = direction.Y * Speed * (float)delta;
+
+		}
+		else
+		{
+			velocity.Y = (float)Mathf.MoveToward(Velocity.Y, Velocity.Y, delta * Speed);
+		}
+
+
 		Velocity = velocity;
 		MoveAndSlide();
 	}
+
 }

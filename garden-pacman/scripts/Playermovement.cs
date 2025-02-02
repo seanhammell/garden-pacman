@@ -5,9 +5,12 @@ public partial class Playermovement : CharacterBody2D
 {
 	[Export]
 	public float Speed = 10000.0f;
+	private float NormalSpeed;
+	private bool Powerup = false;
+	private Timer PowerupTimer;
+	private Area2D KillArea;
 	[Export]
 	public int rayLength = 15;
-
 	private RayCast2D topRightCast;
 	private RayCast2D topLeftCast;
 	private RayCast2D bottomRightCast;
@@ -21,6 +24,14 @@ public partial class Playermovement : CharacterBody2D
 	public override void _Ready()
 	{
 		base._Ready();
+		NormalSpeed = Speed;
+		PowerupTimer = new Timer();
+		PowerupTimer.WaitTime = 5.0f;
+		PowerupTimer.OneShot = true;
+		PowerupTimer.Timeout += OnPowerupTimeout;
+		AddChild(PowerupTimer);
+		KillArea = GetNode<Area2D>("KillArea");
+		KillArea.BodyEntered += OnBodyEntered;
 		topRightCast = GetNode<RayCast2D>("topRightCast");
 		topLeftCast = GetNode<RayCast2D>("topLeftCast");
 		bottomRightCast = GetNode<RayCast2D>("bottomRightCast");
@@ -45,6 +56,32 @@ public partial class Playermovement : CharacterBody2D
 
 
 	}
+	public void GetPowerup()
+	{
+		Speed *= 1.5f;
+		Powerup = true;
+		PowerupTimer.Start();
+		GD.Print("powerup");
+		GD.Print(Powerup);
+	}
+
+	private void OnPowerupTimeout()
+	{
+		Speed = NormalSpeed;
+		Powerup = false;
+	}
+	
+		private void OnBodyEntered(Node body)
+	{
+		if (body.HasMethod("die"))
+		{
+			if (Powerup == true)
+				{
+				body.Call("die");
+				}
+		}
+	}
+	
 	public override void _PhysicsProcess(double delta)
 	{
 

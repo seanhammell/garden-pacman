@@ -99,7 +99,10 @@ public partial class Enemymovement : CharacterBody2D
 		// Move the sprite
 		move();
 	}
-	
+	public void die()
+	{
+		QueueFree();
+	}
 	private void changeDirection(int dir) {
 		direction = dir;
 		

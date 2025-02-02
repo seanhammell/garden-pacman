@@ -1,5 +1,6 @@
-[gd_scene load_steps=27 format=3 uid="uid://cvs2mv0re8nn8"]
+[gd_scene load_steps=29 format=3 uid="uid://cvs2mv0re8nn8"]
 
+[ext_resource type="Script" path="res://Scenario/Scenario.cs" id="1_6ttwj"]
 [ext_resource type="Texture2D" uid="uid://cky425211k1qd" path="res://art/4_Seasons_Ground_Tiles.png" id="1_are6y"]
 [ext_resource type="Script" path="res://scripts/Enemymovement.cs" id="2_cm2u5"]
 [ext_resource type="Texture2D" uid="uid://chiuori3bql05" path="res://art/Ghosts_(Pac-Man).webp" id="2_i8rcw"]
@@ -9,6 +10,7 @@
 [ext_resource type="Script" path="res://Scenario/area_2d.gd" id="6_scrbu"]
 [ext_resource type="Script" path="res://Scenario/left_tp.gd" id="7_ar41n"]
 [ext_resource type="PackedScene" uid="uid://beftj6q5excl1" path="res://Scenario/Item.tscn" id="8_slb8j"]
+[ext_resource type="PackedScene" uid="uid://bvi2en06inq2o" path="res://Scenario/hud.tscn" id="10_8l2x4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_341uk"]
 texture = ExtResource("1_are6y")
@@ -234,6 +236,7 @@ size = Vector2(26, 26)
 size = Vector2(39.5, 51)
 
 [node name="Scenario" type="Node2D"]
+script = ExtResource("1_6ttwj")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(0, 1)
@@ -379,6 +382,11 @@ position = Vector2(-52, -111)
 [node name="PowerupPlayer" parent="Items" instance=ExtResource("6_bb63l")]
 position = Vector2(-214, -158)
 
+[node name="HUD" parent="." instance=ExtResource("10_8l2x4")]
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="Player/KillArea" to="Player" method="_on_kill_area_body_entered"]
 [connection signal="body_entered" from="RightTP" to="RightTP" method="_on_body_entered"]
 [connection signal="body_entered" from="LeftTP" to="LeftTP" method="_on_body_entered"]
+[connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]

@@ -20,11 +20,17 @@ public partial class Playermovement : CharacterBody2D
 	private RayCast2D leftTopCast;
 	private RayCast2D leftBottomCast;
 
+	public void Reset()
+	{
+		Position = new Vector2(-1, 75);
+		NormalSpeed = Speed;
+		Velocity = new Vector2(0, 0);
+	}
 
 	public override void _Ready()
 	{
 		base._Ready();
-		NormalSpeed = Speed;
+		Reset();
 		PowerupTimer = new Timer();
 		PowerupTimer.WaitTime = 5.0f;
 		PowerupTimer.OneShot = true;

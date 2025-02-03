@@ -8,7 +8,7 @@ public partial class Enemymovement : CharacterBody2D
 	[Export]
 	public float Speed { get; set; } = 0.25f;
 	
-	private bool hasPowerUp = true;
+	private bool hasPowerUp = false;
 	
 	private AnimatedSprite2D sprite;
 	
@@ -62,7 +62,7 @@ public partial class Enemymovement : CharacterBody2D
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
-	{
+	{		
 		// The minimum time before the enemy can change directions again
 		double  minTime = 0.3f;
 		
@@ -94,9 +94,11 @@ public partial class Enemymovement : CharacterBody2D
 			Random random = new Random(); // Initialize a random generator
 			
 			if (hasPowerUp) { // If the enemy has the powerup, chase the player
+				Speed = 0.5f;
 				List<int> bestMoves = findPlayer(validMoves);
 				changeDirection(bestMoves.Count > 0 ? bestMoves[random.Next(bestMoves.Count)] : validMoves[random.Next(validMoves.Count)]);
 			} else { // Otherwise, randomly move
+				Speed = 0.25f;
 				changeDirection(validMoves[random.Next(validMoves.Count)]);
 			}
 		}
@@ -117,6 +119,11 @@ public partial class Enemymovement : CharacterBody2D
 	public void die()
 	{
 		QueueFree();
+	}
+	
+	public void TogglePowerup() {
+		// Collect or delete powerup
+		hasPowerUp = !hasPowerUp;
 	}
 	
 	private void changeDirection(int dir) {

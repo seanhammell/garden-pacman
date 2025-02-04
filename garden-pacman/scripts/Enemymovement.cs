@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public partial class Enemymovement : CharacterBody2D
 {
 	[Export]
-	public float Speed { get; set; } = 0.25f;
+	public float Speed { get; set; } = 0.5f;
 	
 	private bool hasPowerUp = false;
 	
@@ -29,6 +29,10 @@ public partial class Enemymovement : CharacterBody2D
 	// To detect and time event changes for the colliders
 	private bool eventOccurred;
 	private double eventTimer;
+	
+	// Powerup timer
+	private double powerupTimer;
+	public int PowerupDuration { get; set; } = 5;
 	
 	// Player reference
 	private CharacterBody2D player;
@@ -56,8 +60,9 @@ public partial class Enemymovement : CharacterBody2D
 		previousBottomCollision = bottomCollider.GetOverlappingBodies().Count > 0;
 		
 		// Initialize variables (direction and the event timer)
-		changeDirection(1);
+		changeDirection(0);
 		eventTimer = 0.0;
+		powerupTimer = 0.0;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -94,11 +99,15 @@ public partial class Enemymovement : CharacterBody2D
 			Random random = new Random(); // Initialize a random generator
 			
 			if (hasPowerUp) { // If the enemy has the powerup, chase the player
-				Speed = 0.5f;
+				powerupTimer += delta;
+				if (powerupTimer >= PowerupDuration) {
+					hasPowerUp = false;
+				}
+				Speed = 1f;
 				List<int> bestMoves = findPlayer(validMoves);
 				changeDirection(bestMoves.Count > 0 ? bestMoves[random.Next(bestMoves.Count)] : validMoves[random.Next(validMoves.Count)]);
 			} else { // Otherwise, randomly move
-				Speed = 0.25f;
+				Speed = 0.5f;
 				changeDirection(validMoves[random.Next(validMoves.Count)]);
 			}
 		}
@@ -116,14 +125,23 @@ public partial class Enemymovement : CharacterBody2D
 		return false;
 	}
 	
+	private void OnBodyEntered(Node2D body) {
+		if (body == player) {
+			if (hasPowerUp) {
+				player.Call("Die");
+			}
+		}
+	}
+	
 	public void die()
 	{
 		QueueFree();
 	}
 	
-	public void TogglePowerup() {
+	public void Powerup() {
 		// Collect or delete powerup
-		hasPowerUp = !hasPowerUp;
+		hasPowerUp = true;
+		powerupTimer = 0.0;
 	}
 	
 	private void changeDirection(int dir) {
@@ -181,27 +199,28 @@ public partial class Enemymovement : CharacterBody2D
 		// Find the difference between the player and enemy positions
 		Vector2 posDifference = player.Position - Position;
 		
-		// Determine if the player is to the right or left
-		if (posDifference[0] > 0) {
-			if (validMoves.Contains(0)) {
-				bestDirections.Add(0);
+			// Determine if the player is to the right or left
+			if (posDifference[0] > 0) {
+				if (validMoves.Contains(0)) {
+					bestDirections.Add(0);
+				}
+			} else if (posDifference[0] < 0) {
+				if (validMoves.Contains(2)) {
+					bestDirections.Add(2);
+				}
 			}
-		} else if (posDifference[0] < 0) {
-			if (validMoves.Contains(2)) {
-				bestDirections.Add(2);
-			}
-		}
+	
 		
-		// Determine if the player is up or down
-		if (posDifference[1] > 0) {
-			if (validMoves.Contains(3)) {
-				bestDirections.Add(3);
+			// Determine if the player is up or down
+			if (posDifference[1] > 0) {
+				if (validMoves.Contains(3)) {
+					bestDirections.Add(3);
+				}
+			} else if (posDifference[1] < 0) {
+				if (validMoves.Contains(1)) {
+					bestDirections.Add(1);
+				}
 			}
-		} else if (posDifference[1] < 0) {
-			if (validMoves.Contains(1)) {
-				bestDirections.Add(1);
-			}
-		}
 		
 		return bestDirections;
 	}

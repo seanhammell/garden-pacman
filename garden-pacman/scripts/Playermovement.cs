@@ -90,7 +90,7 @@ public partial class Playermovement : CharacterBody2D
 	
 	public override void _PhysicsProcess(double delta)
 	{
-
+		GD.Print(Position);
 		Vector2 velocity = Velocity;
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		if (direction.X!=0)

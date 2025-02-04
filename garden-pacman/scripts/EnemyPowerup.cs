@@ -34,26 +34,32 @@ public partial class EnemyPowerup : Area2D
 		Random random = new Random();
 		float newPosX = random.Next(-250, 250);
 		float newPosY = random.Next(-200, 300);
-		//figure out actual dimensions
-		while ((25 < newPosX  && newPosX < 25) && (50 < newPosY && newPosY < 100)) { // Don't respawn in the greenhouse
+		bool validPosition = false;
+		
+		// Get the parent node containing all items
+		Node items = GetNode<Node>("/root/Scenario/Items");
+
+		while (!validPosition) {
 			newPosX = random.Next(-250, 250);
 			newPosY = random.Next(-200, 300);
+			validPosition = true; // Assume position is valid unless we find a conflict
+
+			// Ensure it doesn't spawn in the greenhouse
+			if ((-25 < newPosX && newPosX < 25) && (50 < newPosY && newPosY < 100)) {
+				validPosition = false;
+				continue;
+			}
+			
 		}
+
 		Position = new Vector2(newPosX, newPosY);
 	}
+
 	
 	private void OnBodyEntered(Node2D body)
 	{
 		if (body != GetNode<CharacterBody2D>("/root/Scenario/Player") && body != enemy) { // Make sure that the powerup doesn't respawn on top of something
 			respawn();
-		}
-		
-		foreach (Node child in GetNode<Node>("/root/Scenario/Items").GetChildren()) { // If it respawns on top of another item, respawn again
-			if (child == body)
-			{
-				respawn();
-				break;
-			}
 		}
 		
 		// If the enemy eats it and it has been the proper amount of time since the last powerup

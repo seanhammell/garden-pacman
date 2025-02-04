@@ -7,6 +7,10 @@ public partial class Hud : CanvasLayer
 	{
 		GetNode<Label>("ScoreLabel").Text = score.ToString();
 	}
+	public void UpdateLives(int lives)
+	{
+		GetNode<Label>("LivesLabel").Text = "Lives: " + lives.ToString();
+	}
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

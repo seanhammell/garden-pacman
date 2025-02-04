@@ -32,7 +32,7 @@ public partial class Enemymovement : CharacterBody2D
 	
 	// Powerup timer
 	private double powerupTimer;
-	public int PowerupDuration { get; set; } = 5;
+	public double PowerupDuration { get; set; } = 10.0;
 	
 	// Player reference
 	private CharacterBody2D player;
@@ -91,6 +91,14 @@ public partial class Enemymovement : CharacterBody2D
 			eventTimer = 0; // Reset the timer
 		}
 		
+		if (hasPowerUp) {
+			powerupTimer += delta;
+			if (powerupTimer >= PowerupDuration) {
+				hasPowerUp = false;
+				powerupTimer = 0.0;
+				GetNode<Audio>("../Audio").EnemyPowerDown();
+			}
+		}
 		
 		// Find the best direction to go
 		if (eventOccurred && eventTimer == 0 || isWall(direction)) {
@@ -99,13 +107,6 @@ public partial class Enemymovement : CharacterBody2D
 			Random random = new Random(); // Initialize a random generator
 			
 			if (hasPowerUp) { // If the enemy has the powerup, chase the player
-				powerupTimer += delta;
-				GD.Print(powerupTimer);
-				if (powerupTimer >= PowerupDuration) {
-					hasPowerUp = false;
-					powerupTimer = 0.0;
-					GetNode<Audio>("../Audio").EnemyPowerDown();
-				}
 				Speed = 1f;
 				List<int> bestMoves = findPlayer(validMoves);
 				changeDirection(bestMoves.Count > 0 ? bestMoves[random.Next(bestMoves.Count)] : validMoves[random.Next(validMoves.Count)]);

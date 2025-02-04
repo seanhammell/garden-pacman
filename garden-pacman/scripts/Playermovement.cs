@@ -68,6 +68,10 @@ public partial class Playermovement : CharacterBody2D
 
 
 	}
+	public void die()
+	{
+		QueueFree();
+	}
 	public void GetPowerup()
 	{
 		Speed *= 1.5f;

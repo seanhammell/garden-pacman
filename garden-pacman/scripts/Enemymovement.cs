@@ -134,8 +134,9 @@ public partial class Enemymovement : CharacterBody2D
 	
 	private void OnBodyEntered(Node2D body) {
 		if (body == player) {
+			GD.Print("Enemy Body entered");
 			if (hasPowerUp) {
-				player.Call("Die");
+				player.Call("die");
 				
 			}
 		}

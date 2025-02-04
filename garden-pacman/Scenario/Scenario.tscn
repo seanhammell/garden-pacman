@@ -396,20 +396,23 @@ position = Vector2(-214, -158)
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
-[node name="PowerupPlayer" parent="." instance=ExtResource("13_cld4j")]
+[node name="Pellets3" parent="." instance=ExtResource("13_cld4j")]
 position = Vector2(-37, 3)
 
-[node name="PowerupPlayer2" parent="." instance=ExtResource("13_cld4j")]
+[node name="Pellets2" parent="." instance=ExtResource("13_cld4j")]
 position = Vector2(-61, 3)
 
-[node name="PowerupPlayer3" parent="." instance=ExtResource("13_cld4j")]
+[node name="Pellets" parent="." instance=ExtResource("13_cld4j")]
 position = Vector2(-82, 3)
 
-[node name="PowerupPlayer4" parent="." instance=ExtResource("13_cld4j")]
+[node name="Pellets4" parent="." instance=ExtResource("13_cld4j")]
 position = Vector2(-103, 3)
 
-[node name="PowerupPlayer5" parent="." instance=ExtResource("13_cld4j")]
+[node name="Pellets5" parent="." instance=ExtResource("13_cld4j")]
 position = Vector2(33, 3)
+
+[node name="PelletsTimer" type="Timer" parent="."]
+wait_time = 10.0
 
 [connection signal="body_entered" from="Player/KillArea" to="Player" method="_on_kill_area_body_entered"]
 [connection signal="body_entered" from="RightTP" to="RightTP" method="_on_body_entered"]
@@ -419,3 +422,4 @@ position = Vector2(33, 3)
 [connection signal="body_entered" from="Items/Enemy Powerup3" to="Items/Enemy Powerup3" method="OnBodyEntered"]
 [connection signal="body_entered" from="Items/Enemy Powerup4" to="Items/Enemy Powerup4" method="OnBodyEntered"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
+[connection signal="timeout" from="PelletsTimer" to="." method="OnPelletsTimerTimeout"]

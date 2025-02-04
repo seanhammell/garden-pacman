@@ -48,6 +48,14 @@ public partial class EnemyPowerup : Area2D
 			respawn();
 		}
 		
+		foreach (Node child in GetNode<Node>("/root/Scenario/Items").GetChildren()) { // If it respawns on top of another item, respawn again
+			if (child == body)
+			{
+				respawn();
+				break;
+			}
+		}
+		
 		// If the enemy eats it and it has been the proper amount of time since the last powerup
 		if (body == enemy && timer <= 0.0) {
 			// Hide powerup for timer duration

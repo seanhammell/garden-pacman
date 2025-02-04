@@ -474,6 +474,7 @@ one_shot = true
 stream = SubResource("AudioStreamRandomizer_xpum6")
 volume_db = -6.0
 
+[connection signal="Death" from="Player" to="." method="OnPlayerDeath"]
 [connection signal="body_entered" from="Player/KillArea" to="Player" method="_on_kill_area_body_entered"]
 [connection signal="body_entered" from="RightTP" to="RightTP" method="_on_body_entered"]
 [connection signal="body_entered" from="LeftTP" to="LeftTP" method="_on_body_entered"]

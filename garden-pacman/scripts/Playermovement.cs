@@ -3,6 +3,9 @@ using System;
 
 public partial class Playermovement : CharacterBody2D
 {
+	[Signal]
+	public delegate void DeathEventHandler();
+
 	[Export]
 	public float Speed = 7500.0f;
 	private float NormalSpeed;
@@ -87,6 +90,7 @@ public partial class Playermovement : CharacterBody2D
 			if (Powerup == true)
 			{
 				body.Call("die");
+				EmitSignal(SignalName.Death);
 			}
 		}
 	}

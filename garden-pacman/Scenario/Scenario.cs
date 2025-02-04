@@ -4,6 +4,7 @@ using System;
 public partial class Scenario : Node2D
 {
 	private int _score;
+
 	public void NewGame()
 	{
 		GetNode<Timer>("ScoreTimer").Start();
@@ -14,19 +15,34 @@ public partial class Scenario : Node2D
 		var player = GetNode<Playermovement>("Player");
 		player.Reset();
 	}
+
+	public void GameOver(bool playerWon)
+	{
+		NewGame();
+	}
 	
 	public void OnScoreTimerTimeout()
 	{
 		--_score;
 		GetNode<Hud>("HUD").UpdateScore(_score);
+		if (_score == 0) {
+			const bool playerWon = false;
+			GameOver(playerWon);
+		}
 	}
-	
+
 		public void OnPelletsTimerTimeout()
 	{
 		var PlayerNode = GetNode<CharacterBody2D>("Player");
 		var PelletsInstance = GetNode<Area2D>("Pellets");
 		PelletsInstance.GlobalPosition = PlayerNode.GlobalPosition;
 		GetTree().CurrentScene.AddChild(PelletsInstance);
+	}
+	
+	public void OnPlayerDeath()
+	{
+		const bool playerWon = false;
+		GameOver(playerWon);
 	}
 
 	// Called when the node enters the scene tree for the first time.

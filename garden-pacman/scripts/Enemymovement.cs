@@ -8,7 +8,7 @@ public partial class Enemymovement : CharacterBody2D
 	[Export]
 	public float Speed { get; set; } = 0.5f;
 	
-	private bool hasPowerUp = false;
+	public bool hasPowerUp { get; set; } = false;
 	
 	private AnimatedSprite2D sprite;
 	
@@ -67,9 +67,9 @@ public partial class Enemymovement : CharacterBody2D
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
-	{		
+	{
 		// The minimum time before the enemy can change directions again
-		double  minTime = 0.3f;
+		double minTime = 0.3f;
 		
 		// If event occurred, wait for a bit before testing event occurred again
 		if (eventTimer > minTime) { // If the timer is up, allow events to occur again
@@ -100,8 +100,11 @@ public partial class Enemymovement : CharacterBody2D
 			
 			if (hasPowerUp) { // If the enemy has the powerup, chase the player
 				powerupTimer += delta;
+				GD.Print(powerupTimer);
 				if (powerupTimer >= PowerupDuration) {
 					hasPowerUp = false;
+					powerupTimer = 0.0;
+					GetNode<Audio>("../Audio").EnemyPowerDown();
 				}
 				Speed = 1f;
 				List<int> bestMoves = findPlayer(validMoves);
@@ -142,6 +145,8 @@ public partial class Enemymovement : CharacterBody2D
 		// Collect or delete powerup
 		hasPowerUp = true;
 		powerupTimer = 0.0;
+		
+		GetNode<Audio>("../Audio").EnemyPowerUp();
 	}
 	
 	private void changeDirection(int dir) {

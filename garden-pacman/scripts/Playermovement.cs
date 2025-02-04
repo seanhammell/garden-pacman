@@ -19,10 +19,13 @@ public partial class Playermovement : CharacterBody2D
 	private RayCast2D rightBottomCast;
 	private RayCast2D leftTopCast;
 	private RayCast2D leftBottomCast;
+	
+	private Vector2 PreviousPosition;
 
 	public void Reset()
 	{
 		Position = new Vector2(-1, 75);
+		PreviousPosition = new Vector2(Position.X, Position.Y);
 		NormalSpeed = Speed;
 		Velocity = new Vector2(0, 0);
 	}
@@ -77,20 +80,20 @@ public partial class Playermovement : CharacterBody2D
 		Powerup = false;
 	}
 	
-		private void OnBodyEntered(Node body)
+	private void OnBodyEntered(Node body)
 	{
 		if (body.HasMethod("die"))
 		{
 			if (Powerup == true)
-				{
+			{
 				body.Call("die");
-				}
+			}
 		}
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		GD.Print(Position);
+		//GD.Print(Position);
 		Vector2 velocity = Velocity;
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		if (direction.X!=0)
@@ -149,6 +152,14 @@ public partial class Playermovement : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+		
+		var footstep_timer = GetNode<Timer>("FootstepSound/Timer");
+		if ((Position - PreviousPosition).Length() > 1.0 && footstep_timer.IsStopped()) {
+			GetNode<AudioStreamPlayer>("FootstepSound").Play();
+			footstep_timer.Start();
+		}
+		
+		PreviousPosition = new Vector2(Position.X, Position.Y);
 	}
-
+	
 }

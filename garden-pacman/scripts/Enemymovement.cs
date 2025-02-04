@@ -6,7 +6,9 @@ using System.Collections.Generic;
 public partial class Enemymovement : CharacterBody2D
 {
 	[Export]
-	public float Speed { get; set; } = 0.5f;
+	public float Speed { get; set; }
+	private float normalSpeed = 100f;
+	private float chaseSpeed = 200f;
 	
 	public bool hasPowerUp { get; set; } = false;
 	
@@ -40,6 +42,7 @@ public partial class Enemymovement : CharacterBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Speed = normalSpeed;
 		// Get the sprite to change animations
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		
@@ -93,7 +96,9 @@ public partial class Enemymovement : CharacterBody2D
 		
 		if (hasPowerUp) {
 			powerupTimer += delta;
+			Speed = chaseSpeed;
 			if (powerupTimer >= PowerupDuration) {
+				Speed = normalSpeed;
 				hasPowerUp = false;
 				powerupTimer = 0.0;
 				GetNode<Audio>("../Audio").EnemyPowerDown();
@@ -107,11 +112,9 @@ public partial class Enemymovement : CharacterBody2D
 			Random random = new Random(); // Initialize a random generator
 			
 			if (hasPowerUp) { // If the enemy has the powerup, chase the player
-				Speed = 1f;
 				List<int> bestMoves = findPlayer(validMoves);
 				changeDirection(bestMoves.Count > 0 ? bestMoves[random.Next(bestMoves.Count)] : validMoves[random.Next(validMoves.Count)]);
 			} else { // Otherwise, randomly move
-				Speed = 0.5f;
 				changeDirection(validMoves[random.Next(validMoves.Count)]);
 			}
 		}
@@ -143,11 +146,13 @@ public partial class Enemymovement : CharacterBody2D
 	}
 	
 	public void Powerup() {
+		if (!hasPowerUp) {
+			GetNode<Audio>("../Audio").EnemyPowerUp();
+		}
+		
 		// Collect or delete powerup
 		hasPowerUp = true;
 		powerupTimer = 0.0;
-		
-		GetNode<Audio>("../Audio").EnemyPowerUp();
 	}
 	
 	private void changeDirection(int dir) {
@@ -206,11 +211,11 @@ public partial class Enemymovement : CharacterBody2D
 		Vector2 posDifference = player.Position - Position;
 		
 			// Determine if the player is to the right or left
-			if (posDifference[0] > 0) {
+			if (posDifference[0] > 10) {
 				if (validMoves.Contains(0)) {
 					bestDirections.Add(0);
 				}
-			} else if (posDifference[0] < 0) {
+			} else if (posDifference[0] < -10) {
 				if (validMoves.Contains(2)) {
 					bestDirections.Add(2);
 				}
@@ -218,11 +223,11 @@ public partial class Enemymovement : CharacterBody2D
 	
 		
 			// Determine if the player is up or down
-			if (posDifference[1] > 0) {
+			if (posDifference[1] > 10) {
 				if (validMoves.Contains(3)) {
 					bestDirections.Add(3);
 				}
-			} else if (posDifference[1] < 0) {
+			} else if (posDifference[1] < -10) {
 				if (validMoves.Contains(1)) {
 					bestDirections.Add(1);
 				}
@@ -239,6 +244,6 @@ public partial class Enemymovement : CharacterBody2D
 	private void move() {
 		// Move the enemy
 		// Right and down are positive, left and up are negative 
-		Position += new Vector2((direction-1)*Speed*(direction%2-1), (direction-2)*Speed*(direction%2)); // (x, y)
+		Position += new Vector2((direction-1)*Speed*(direction%2-1)*(float)GetProcessDeltaTime(), (direction-2)*Speed*(direction%2)*(float)GetProcessDeltaTime()); // (x, y)
 	}
 }

@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://bvi2en06inq2o" path="res://Scenario/hud.tscn" id="10_8l2x4"]
 [ext_resource type="AudioStream" uid="uid://cqf8xg35ngow1" path="res://sound/footstep/footstep_3.wav" id="10_w52x4"]
 [ext_resource type="PackedScene" uid="uid://cem6qmbdtxod5" path="res://Scenario/enemy_powerup.tscn" id="11_grok4"]
-[ext_resource type="PackedScene" uid="uid://c71qmf5ysvcku" path="res://Scenario/pellets.tscn" id="13_cld4j"]
+[ext_resource type="PackedScene" uid="uid://bfjj3kdoixya" path="res://Scenario/pellets.tscn" id="13_cld4j"]
 [ext_resource type="AudioStream" uid="uid://cqk0pn4giawm0" path="res://sound/music_main.ogg" id="18_bcid6"]
 [ext_resource type="AudioStream" uid="uid://bou051x4t3gka" path="res://sound/music_action.ogg" id="19_q4kxh"]
 

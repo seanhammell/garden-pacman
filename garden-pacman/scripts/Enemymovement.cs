@@ -10,7 +10,7 @@ public partial class Enemymovement : CharacterBody2D
 	private float normalSpeed = 75f;
 	private float chaseSpeed = 150f;
 	
-	public bool hasPowerUp { get; set; } = false;
+	public bool hasPowerUp { get; set; } = true;
 	
 	private AnimatedSprite2D sprite;
 	

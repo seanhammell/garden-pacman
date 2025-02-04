@@ -286,6 +286,7 @@ scale = Vector2(1.55, 1.55)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("2_cm2u5")
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
 scale = Vector2(0.2, 0.2)
@@ -474,7 +475,10 @@ one_shot = true
 stream = SubResource("AudioStreamRandomizer_xpum6")
 volume_db = -6.0
 
-[connection signal="Death" from="Player" to="." method="OnPlayerDeath"]
+[connection signal="body_entered" from="Enemy/BottomCollider" to="Enemy" method="OnBodyEntered"]
+[connection signal="body_entered" from="Enemy/TopCollider" to="Enemy" method="OnBodyEntered"]
+[connection signal="body_entered" from="Enemy/RightCollider" to="Enemy" method="OnBodyEntered"]
+[connection signal="body_entered" from="Enemy/LeftCollider" to="Enemy" method="OnBodyEntered"]
 [connection signal="body_entered" from="Player/KillArea" to="Player" method="_on_kill_area_body_entered"]
 [connection signal="body_entered" from="RightTP" to="RightTP" method="_on_body_entered"]
 [connection signal="body_entered" from="LeftTP" to="LeftTP" method="_on_body_entered"]

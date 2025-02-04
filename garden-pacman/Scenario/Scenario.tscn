@@ -462,7 +462,7 @@ position = Vector2(33, 3)
 [node name="PelletsTimer" type="Timer" parent="."]
 wait_time = 10.0
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamPlaylist_t3c6g")
 
 [connection signal="body_entered" from="Player/KillArea" to="Player" method="_on_kill_area_body_entered"]

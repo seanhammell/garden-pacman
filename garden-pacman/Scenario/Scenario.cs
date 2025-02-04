@@ -8,7 +8,7 @@ public partial class Scenario : Node2D
 	{
 		GetNode<Timer>("ScoreTimer").Start();
 		GetNode<Timer>("PelletsTimer").Start();
-		_score = 0;
+		_score = 10000;
 		var hud = GetNode<Hud>("HUD");
 		hud.UpdateScore(_score);
 		var player = GetNode<Playermovement>("Player");
@@ -17,7 +17,7 @@ public partial class Scenario : Node2D
 	
 	public void OnScoreTimerTimeout()
 	{
-		++_score;
+		--_score;
 		GetNode<Hud>("HUD").UpdateScore(_score);
 	}
 	

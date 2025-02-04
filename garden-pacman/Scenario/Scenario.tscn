@@ -435,6 +435,7 @@ position = Vector2(-214, -158)
 [node name="HUD" parent="." instance=ExtResource("10_8l2x4")]
 
 [node name="ScoreTimer" type="Timer" parent="."]
+wait_time = 0.1
 
 [node name="Pellets3" parent="." instance=ExtResource("13_cld4j")]
 position = Vector2(-37, 3)

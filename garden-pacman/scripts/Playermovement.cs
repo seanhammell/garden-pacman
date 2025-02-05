@@ -118,7 +118,7 @@ public partial class Playermovement : CharacterBody2D
 		{
 			
 			
-			if (rightTopCast.IsColliding() || rightBottomCast.IsColliding())
+			if (rightTopCast.IsColliding() && rightBottomCast.IsColliding())
 			{
 				if (direction.X > 0)
 				{
@@ -126,7 +126,7 @@ public partial class Playermovement : CharacterBody2D
 					direction.X = 0;
 				}
 			}
-			if (leftTopCast.IsColliding() || leftBottomCast.IsColliding())
+			if (leftTopCast.IsColliding() && leftBottomCast.IsColliding())
 			{
 				if (direction.X < 0)
 				{
@@ -145,14 +145,14 @@ public partial class Playermovement : CharacterBody2D
 		if(direction.Y!=0)
 		{
 			
-			if (topRightCast.IsColliding() || topLeftCast.IsColliding())
+			if (topRightCast.IsColliding() && topLeftCast.IsColliding())
 			{
 				if (direction.Y < 0)
 				{
 					direction.Y = 0;
 				}
 			}
-			if (bottomRightCast.IsColliding() || bottomLeftCast.IsColliding())
+			if (bottomRightCast.IsColliding() && bottomLeftCast.IsColliding())
 			{
 				if (direction.Y > 0)
 				{

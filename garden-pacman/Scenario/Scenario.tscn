@@ -221,6 +221,7 @@ target_position = Vector2(0, 32)
 z_index = 7
 position = Vector2(256, 256)
 script = ExtResource("4_hwfpi")
+rayLength = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 scale = Vector2(0.21875, 0.214844)

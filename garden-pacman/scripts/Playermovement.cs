@@ -29,7 +29,7 @@ public partial class Playermovement : CharacterBody2D
 
 	public void Reset()
 	{
-		Position = new Vector2(-1, 75);
+		Position = new Vector2(256, 256);
 		PreviousPosition = new Vector2(Position.X, Position.Y);
 		NormalSpeed = Speed;
 		Velocity = new Vector2(0, 0);

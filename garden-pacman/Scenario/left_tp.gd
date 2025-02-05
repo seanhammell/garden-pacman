@@ -1,5 +1,5 @@
 extends Area2D
-var teleport_location = Vector2(226, 4)
+var teleport_location = Vector2(480, 192)
 
 func _on_body_entered(body: Node2D) -> void:
 	if (body.name == 'Enemy') or (body.name == 'Player'):

@@ -32,20 +32,20 @@ public partial class EnemyPowerup : Area2D
 	private void respawn() {
 		// Respawn the powerup at a random valid place
 		Random random = new Random();
-		float newPosX = random.Next(-250, 250);
-		float newPosY = random.Next(-200, 300);
+		float newPosX = random.Next(32, 480);
+		float newPosY = random.Next(32, 480);
 		bool validPosition = false;
 		
 		// Get the parent node containing all items
 		Node items = GetNode<Node>("/root/Scenario/Items");
 
 		while (!validPosition) {
-			newPosX = random.Next(-250, 250);
-			newPosY = random.Next(-200, 300);
+			newPosX = random.Next(32, 480);
+			newPosY = random.Next(32, 480);
 			validPosition = true; // Assume position is valid unless we find a conflict
 
 			// Ensure it doesn't spawn in the greenhouse
-			if ((-25 < newPosX && newPosX < 25) && (-100 < newPosY && newPosY < 100)) {
+			if ((224 < newPosX && newPosX < 288) && (-224 < newPosY && newPosY < 288)) {
 				validPosition = false;
 				continue;
 			}

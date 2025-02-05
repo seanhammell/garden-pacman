@@ -5,19 +5,19 @@
 [ext_resource type="Texture2D" uid="uid://6mwi4im5dfx4" path="res://art/Sprites.png" id="3_oarh4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y3rg6"]
-size = Vector2(16.7742, 3.22581)
+size = Vector2(6.45162, 1.29032)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eykj1"]
-size = Vector2(17.3333, 3.22581)
+size = Vector2(6.45162, 1.29033)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_htbyx"]
-size = Vector2(3.33333, 16.7742)
+size = Vector2(1.93548, 7.74193)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sbiwd"]
-size = Vector2(3.3415, 17.0737)
+size = Vector2(1.94023, 7.88019)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ok66l"]
-size = Vector2(15.4839, 15.4839)
+size = Vector2(5.16129, 5.80645)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l27yj"]
 atlas = ExtResource("3_oarh4")
@@ -152,7 +152,7 @@ animations = [{
 
 [node name="Enemy" type="CharacterBody2D"]
 z_index = 7
-position = Vector2(-4, 130)
+position = Vector2(-7, 130)
 scale = Vector2(1.55, 1.55)
 collision_layer = 3
 collision_mask = 3
@@ -162,33 +162,39 @@ metadata/_edit_group_ = true
 [node name="BottomCollider" type="Area2D" parent="."]
 
 [node name="BottomCollider" type="CollisionShape2D" parent="BottomCollider"]
-position = Vector2(-7.15256e-07, 10)
+position = Vector2(-0.645161, 4.51613)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_y3rg6")
 
 [node name="TopCollider" type="Area2D" parent="."]
 
 [node name="TopCollider" type="CollisionShape2D" parent="TopCollider"]
-position = Vector2(2.38419e-07, -10)
+position = Vector2(-0.645161, -4.51612)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_eykj1")
 
 [node name="RightCollider" type="Area2D" parent="."]
 
 [node name="RightCollider" type="CollisionShape2D" parent="RightCollider"]
-position = Vector2(10.3333, 0)
+position = Vector2(3.54839, 0)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_htbyx")
 
 [node name="LeftCollider" type="Area2D" parent="."]
 
 [node name="LeftCollider" type="CollisionShape2D" parent="LeftCollider"]
-position = Vector2(-10.3333, 0)
+position = Vector2(-4.83871, 0)
 scale = Vector2(0.997555, 0.982456)
 shape = SubResource("RectangleShape2D_sbiwd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.645161, 0.322578)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ok66l")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.075, 0.075)
+position = Vector2(-0.645161, 0.32258)
+scale = Vector2(0.0360425, 0.0267578)
 sprite_frames = SubResource("SpriteFrames_fdklx")
 animation = &"down_harmless"
 

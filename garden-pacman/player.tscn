@@ -1,0 +1,111 @@
+[gd_scene load_steps=12 format=3 uid="uid://dvmjdr8po6cxo"]
+
+[ext_resource type="Script" path="res://scripts/Playermovement.cs" id="1_3liyh"]
+[ext_resource type="Texture2D" uid="uid://b011s4r5r1c5u" path="res://icon.svg" id="2_epr3o"]
+[ext_resource type="AudioStream" uid="uid://04j1ots1j4dw" path="res://sound/footstep/footstep_0.wav" id="3_w3tau"]
+[ext_resource type="AudioStream" uid="uid://3amc7gmips1u" path="res://sound/footstep/footstep_1.wav" id="4_u2sy1"]
+[ext_resource type="AudioStream" uid="uid://byurmw6ppdxkv" path="res://sound/footstep/footstep_2.wav" id="5_24c55"]
+[ext_resource type="AudioStream" uid="uid://cqf8xg35ngow1" path="res://sound/footstep/footstep_3.wav" id="6_uutnh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8ydj"]
+atlas = ExtResource("2_epr3o")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_is5vt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8ydj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ghl8w"]
+size = Vector2(15, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0gnux"]
+size = Vector2(13, 12)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_q41r8"]
+random_pitch = 1.2
+random_volume_offset_db = 3.0
+streams_count = 4
+stream_0/stream = ExtResource("3_w3tau")
+stream_1/stream = ExtResource("4_u2sy1")
+stream_2/stream = ExtResource("5_24c55")
+stream_3/stream = ExtResource("6_uutnh")
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 7
+position = Vector2(389, 138)
+script = ExtResource("1_3liyh")
+rayLength = 5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.499996, -1.00001)
+scale = Vector2(0.101563, 0.09375)
+sprite_frames = SubResource("SpriteFrames_is5vt")
+
+[node name="KillArea" type="Area2D" parent="."]
+
+[node name="KillArea" type="CollisionShape2D" parent="KillArea"]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_ghl8w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_0gnux")
+
+[node name="topRightCast" type="RayCast2D" parent="."]
+position = Vector2(8, -8)
+rotation = 3.14159
+target_position = Vector2(0, 15)
+
+[node name="topLeftCast" type="RayCast2D" parent="."]
+position = Vector2(-7, -8)
+rotation = -3.14159
+target_position = Vector2(0, 15)
+
+[node name="bottomRightCast" type="RayCast2D" parent="."]
+position = Vector2(8, 6)
+target_position = Vector2(0, 15)
+
+[node name="bottomLeftCast" type="RayCast2D" parent="."]
+position = Vector2(-7, 6)
+target_position = Vector2(0, 15)
+
+[node name="rightTopCast" type="RayCast2D" parent="."]
+position = Vector2(8, -8)
+rotation = -1.5708
+target_position = Vector2(0, 15)
+
+[node name="rightBottomCast" type="RayCast2D" parent="."]
+position = Vector2(8, 6)
+rotation = -1.5708
+target_position = Vector2(0, 15)
+
+[node name="leftTopCast" type="RayCast2D" parent="."]
+position = Vector2(-7, -8)
+rotation = 1.5708
+target_position = Vector2(0, 15)
+
+[node name="leftBottomCast" type="RayCast2D" parent="."]
+position = Vector2(-7, 6)
+rotation = 1.5708
+target_position = Vector2(0, 15)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="FootstepSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_q41r8")
+volume_db = -12.0
+playback_type = 2
+
+[node name="Timer" type="Timer" parent="FootstepSound"]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="body_entered" from="KillArea" to="." method="_on_kill_area_body_entered"]

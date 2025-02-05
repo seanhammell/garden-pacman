@@ -25,6 +25,8 @@ public partial class Playermovement : CharacterBody2D
 	
 	private Vector2 PreviousPosition;
 
+	private Scenario gameManager;
+
 	public void Reset()
 	{
 		Position = new Vector2(-1, 75);
@@ -37,6 +39,7 @@ public partial class Playermovement : CharacterBody2D
 	{
 		base._Ready();
 		Reset();
+		gameManager = GetNode<Scenario>("/root/Scenario");
 		PowerupTimer = new Timer();
 		PowerupTimer.WaitTime = 5.0f;
 		PowerupTimer.OneShot = true;
@@ -94,9 +97,20 @@ public partial class Playermovement : CharacterBody2D
 			if (Powerup == true)
 			{
 				body.Call("die");
-				EmitSignal(SignalName.Death);
+
 			}
 		}
+	}
+	
+	public void Die()
+	{
+		GD.Print("Player Died");
+		gameManager.OnPlayerDeath();
+		if(gameManager.gameOver)
+		{
+			QueueFree();
+		}
+		
 	}
 	
 	public override void _PhysicsProcess(double delta)

@@ -4,27 +4,38 @@ using System;
 public partial class Scenario : Node2D
 {
 	private int _score;
-
+	private int _playerLives = 1;
+	public bool gameOver=false;
+	private Hud hud;
 	public void NewGame()
 	{
 		GetNode<Timer>("ScoreTimer").Start();
 		GetNode<Timer>("PelletsTimer").Start();
 		_score = 10000;
-		var hud = GetNode<Hud>("HUD");
+		
 		hud.UpdateScore(_score);
+		
 		var player = GetNode<Playermovement>("Player");
 		player.Reset();
 	}
 
 	public void GameOver(bool playerWon)
 	{
-		NewGame();
+		gameOver = true;
+		if(playerWon)
+		{
+			GD.Print("Player Won!");
+		}
+		else
+		{
+			GD.Print("Player Lost!");
+		}
 	}
 	
 	public void OnScoreTimerTimeout()
 	{
 		--_score;
-		GetNode<Hud>("HUD").UpdateScore(_score);
+		hud.UpdateScore(_score);
 		if (_score == 0) {
 			const bool playerWon = false;
 			GameOver(playerWon);
@@ -42,12 +53,22 @@ public partial class Scenario : Node2D
 	public void OnPlayerDeath()
 	{
 		const bool playerWon = false;
-		GameOver(playerWon);
+		--_playerLives;
+		if(_playerLives>0)
+		{
+			NewGame();
+		}
+		else
+		{
+			GameOver(playerWon);
+		}
+		hud.UpdateLives(_playerLives);
 	}
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		hud = GetNode<Hud>("HUD");
 		NewGame();
 	}
 

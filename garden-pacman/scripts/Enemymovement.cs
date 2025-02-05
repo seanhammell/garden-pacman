@@ -100,6 +100,7 @@ public partial class Enemymovement : CharacterBody2D
 			if (powerupTimer >= PowerupDuration) {
 				Speed = normalSpeed;
 				hasPowerUp = false;
+				changeDirection(direction);
 				powerupTimer = 0.0;
 				GetNode<Audio>("../Audio").EnemyPowerDown();
 			}
@@ -152,6 +153,7 @@ public partial class Enemymovement : CharacterBody2D
 		}
 		
 		// Collect or delete powerup
+		changeDirection(direction);
 		hasPowerUp = true;
 		powerupTimer = 0.0;
 	}
@@ -161,15 +163,34 @@ public partial class Enemymovement : CharacterBody2D
 		
 		switch (dir) {
 			case 0:
-				sprite.FlipH = true;
-				sprite.Play("forward");
+				if (hasPowerUp) {
+					sprite.FlipH = true;
+					sprite.Play("forward");
+				} else {
+					sprite.FlipH = false;
+					sprite.Play("right_harmless");
+				}
 				break;
 			case 1:
-				sprite.Play("backward");
+				if (hasPowerUp) {
+					sprite.Play("backward");
+				} else {
+					sprite.Play("up_harmless");
+				}
 				break;
 			case 2:
-				sprite.FlipH = false;
-				sprite.Play("forward");
+				if (hasPowerUp) {
+					sprite.FlipH = false;
+					sprite.Play("forward");
+				} else {
+					sprite.FlipH = false;
+					sprite.Play("left_harmless");
+				}
+				break;
+			case 3:
+				if (!hasPowerUp) {
+					sprite.Play("down_harmless");
+				}
 				break;
 			default:
 				break;

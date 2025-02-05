@@ -5,7 +5,7 @@ public partial class Hud : CanvasLayer
 {
 	public void UpdateScore(int score)
 	{
-		GetNode<Label>("ScoreLabel").Text = score.ToString();
+		GetNode<Label>("ScoreLabel").Text = "Score: " + score.ToString();
 	}
 	public void UpdateLives(int lives)
 	{

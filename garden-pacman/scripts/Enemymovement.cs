@@ -10,7 +10,7 @@ public partial class Enemymovement : CharacterBody2D
 	private float normalSpeed = 75f;
 	private float chaseSpeed = 150f;
 	
-	public bool hasPowerUp { get; set; } = true;
+	public bool hasPowerUp { get; set; } = false;
 	
 	private AnimatedSprite2D sprite;
 	
@@ -162,16 +162,15 @@ public partial class Enemymovement : CharacterBody2D
 		
 		switch (dir) {
 			case 0:
-				sprite.Play("right");
+				sprite.FlipH = true;
+				sprite.Play("forward");
 				break;
 			case 1:
-				sprite.Play("up");
+				sprite.Play("backward");
 				break;
 			case 2:
-				sprite.Play("left");
-				break;
-			case 3:
-				sprite.Play("down");
+				sprite.FlipH = false;
+				sprite.Play("forward");
 				break;
 			default:
 				break;
@@ -212,28 +211,28 @@ public partial class Enemymovement : CharacterBody2D
 		// Find the difference between the player and enemy positions
 		Vector2 posDifference = player.Position - Position;
 		
-			// Determine if the player is to the right or left
-			if (posDifference[0] > 10) {
-				if (validMoves.Contains(0)) {
-					bestDirections.Add(0);
-				}
-			} else if (posDifference[0] < -10) {
-				if (validMoves.Contains(2)) {
-					bestDirections.Add(2);
-				}
+		// Determine if the player is to the right or left
+		if (posDifference[0] > 10) {
+			if (validMoves.Contains(0) || Math.Abs(direction-0) == 2) { // if right is a valid move or it's the opposite direction
+				bestDirections.Add(0);
 			}
+		} else if (posDifference[0] < -10) {
+			if (validMoves.Contains(2) || Math.Abs(direction-0) == 2) { // if left is a valid move or it's the opposite direction
+				bestDirections.Add(2);
+			}
+		}
 	
 		
-			// Determine if the player is up or down
-			if (posDifference[1] > 10) {
-				if (validMoves.Contains(3)) {
-					bestDirections.Add(3);
-				}
-			} else if (posDifference[1] < -10) {
-				if (validMoves.Contains(1)) {
-					bestDirections.Add(1);
-				}
+		// Determine if the player is up or down
+		if (posDifference[1] > 10) {
+			if (validMoves.Contains(3) || Math.Abs(direction-0) == 2) { // if down is a valid move or it's the opposite direction
+				bestDirections.Add(3);
 			}
+		} else if (posDifference[1] < -10) {
+			if (validMoves.Contains(1) || Math.Abs(direction-0) == 2) { // if up is a valid move or it's the opposite direction
+				bestDirections.Add(1);
+			}
+		}
 		
 		return bestDirections;
 	}

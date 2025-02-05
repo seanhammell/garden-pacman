@@ -1,9 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://cem6qmbdtxod5"]
 
 [ext_resource type="Script" path="res://scripts/EnemyPowerup.cs" id="1_dgffl"]
-[ext_resource type="Texture2D" uid="uid://chiuori3bql05" path="res://art/Ghosts_(Pac-Man).webp" id="2_4p80d"]
+[ext_resource type="Texture2D" uid="uid://6mwi4im5dfx4" path="res://art/Sprites.png" id="2_eoxac"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1ef84"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lg14m"]
+size = Vector2(17.3333, 16.6667)
 
 [node name="Enemy Powerup" type="Area2D"]
 position = Vector2(44, 128)
@@ -11,8 +12,14 @@ script = ExtResource("1_dgffl")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_1ef84")
+position = Vector2(0, 1.5)
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_lg14m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_4p80d")
+position = Vector2(3, 1)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_eoxac")
+hframes = 6
+vframes = 3
+frame = 1

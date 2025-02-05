@@ -1,0 +1,108 @@
+[gd_scene load_steps=13 format=3 uid="uid://y27jmaahwhnr"]
+
+[ext_resource type="Script" path="res://scripts/Enemymovement.cs" id="1_hee1d"]
+[ext_resource type="Texture2D" uid="uid://6mwi4im5dfx4" path="res://art/Sprites.png" id="3_oarh4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y3rg6"]
+size = Vector2(16.7742, 3.22581)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eykj1"]
+size = Vector2(17.3333, 3.22581)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_htbyx"]
+size = Vector2(3.33333, 16.7742)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbiwd"]
+size = Vector2(3.3415, 17.0737)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ok66l"]
+size = Vector2(15.4839, 15.4839)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l27yj"]
+atlas = ExtResource("3_oarh4")
+region = Rect2(666, 285, 279, 285)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jvmc"]
+atlas = ExtResource("3_oarh4")
+region = Rect2(952, 285, 279, 285)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtirn"]
+atlas = ExtResource("3_oarh4")
+region = Rect2(1, 281, 279, 281)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4qmg"]
+atlas = ExtResource("3_oarh4")
+region = Rect2(280, 281, 279, 281)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fdklx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l27yj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3jvmc")
+}],
+"loop": true,
+"name": &"backward",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtirn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4qmg")
+}],
+"loop": true,
+"name": &"forward",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="CharacterBody2D"]
+z_index = 7
+position = Vector2(-4, 130)
+scale = Vector2(1.55, 1.55)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_hee1d")
+metadata/_edit_group_ = true
+
+[node name="BottomCollider" type="Area2D" parent="."]
+
+[node name="BottomCollider" type="CollisionShape2D" parent="BottomCollider"]
+position = Vector2(-7.15256e-07, 10)
+shape = SubResource("RectangleShape2D_y3rg6")
+
+[node name="TopCollider" type="Area2D" parent="."]
+
+[node name="TopCollider" type="CollisionShape2D" parent="TopCollider"]
+position = Vector2(2.38419e-07, -10)
+shape = SubResource("RectangleShape2D_eykj1")
+
+[node name="RightCollider" type="Area2D" parent="."]
+
+[node name="RightCollider" type="CollisionShape2D" parent="RightCollider"]
+position = Vector2(10.3333, 0)
+shape = SubResource("RectangleShape2D_htbyx")
+
+[node name="LeftCollider" type="Area2D" parent="."]
+
+[node name="LeftCollider" type="CollisionShape2D" parent="LeftCollider"]
+position = Vector2(-10.3333, 0)
+scale = Vector2(0.997555, 0.982456)
+shape = SubResource("RectangleShape2D_sbiwd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_ok66l")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.075, 0.075)
+sprite_frames = SubResource("SpriteFrames_fdklx")
+animation = &"backward"
+
+[connection signal="body_entered" from="BottomCollider" to="." method="OnBodyEntered"]
+[connection signal="body_entered" from="TopCollider" to="." method="OnBodyEntered"]
+[connection signal="body_entered" from="RightCollider" to="." method="OnBodyEntered"]
+[connection signal="body_entered" from="LeftCollider" to="." method="OnBodyEntered"]

@@ -59,16 +59,16 @@ public partial class EnemyPowerup : Area2D
 	private void OnBodyEntered(Node2D body)
 	{
 		if (body != GetNode<CharacterBody2D>("/root/Scenario/Player") && body != enemy) { // Make sure that the powerup doesn't respawn on top of something
-			Hide();
 			isRespawning = true;
+			Hide();
 			respawn();
 		}
 		
 		// If the enemy eats it and it has been the proper amount of time since the last powerup
 		if (body == enemy && timer >= (int)enemy.Get("PowerupDuration")) {
 			// Hide powerup for timer duration
-			Hide();
 			isRespawning = true;
+			Hide();
 			respawn();
 			enemy.Call("Powerup");
 			startTimer();

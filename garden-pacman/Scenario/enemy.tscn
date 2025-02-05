@@ -94,7 +94,6 @@ scale = Vector2(0.997555, 0.982456)
 shape = SubResource("RectangleShape2D_sbiwd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ok66l")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

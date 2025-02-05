@@ -7,7 +7,7 @@ public partial class Playermovement : CharacterBody2D
 	public delegate void DeathEventHandler();
 
 	[Export]
-	public float Speed = 7500.0f;
+	public float Speed = 5000.0f;
 	private float NormalSpeed;
 	private bool Powerup = false;
 	private Timer PowerupTimer;

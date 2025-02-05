@@ -6,7 +6,7 @@ public partial class EnemyPowerup : Area2D
 	// Get enemy node
 	private CharacterBody2D enemy;
 	
-	private bool isRespawning = true;
+	private bool isRespawning = false;
 	private double timer; 
 	
 	// Called when the node enters the scene tree for the first time.
@@ -14,7 +14,6 @@ public partial class EnemyPowerup : Area2D
 	{
 		enemy = GetNode<CharacterBody2D>("/root/Scenario/Enemy");
 		timer = 100.0;
-		respawn();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

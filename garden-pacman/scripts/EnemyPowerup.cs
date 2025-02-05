@@ -6,7 +6,7 @@ public partial class EnemyPowerup : Area2D
 	// Get enemy node
 	private CharacterBody2D enemy;
 	
-	private bool isRespawning = true;
+	private bool isRespawning = false;
 	private double timer; 
 	
 	// Called when the node enters the scene tree for the first time.
@@ -14,7 +14,6 @@ public partial class EnemyPowerup : Area2D
 	{
 		enemy = GetNode<CharacterBody2D>("/root/Scenario/Enemy");
 		timer = 100.0;
-		respawn();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -60,16 +59,16 @@ public partial class EnemyPowerup : Area2D
 	private void OnBodyEntered(Node2D body)
 	{
 		if (body != GetNode<CharacterBody2D>("/root/Scenario/Player") && body != enemy) { // Make sure that the powerup doesn't respawn on top of something
-			Hide();
 			isRespawning = true;
+			Hide();
 			respawn();
 		}
 		
 		// If the enemy eats it and it has been the proper amount of time since the last powerup
 		if (body == enemy && timer >= (int)enemy.Get("PowerupDuration")) {
 			// Hide powerup for timer duration
-			Hide();
 			isRespawning = true;
+			Hide();
 			respawn();
 			enemy.Call("Powerup");
 			startTimer();

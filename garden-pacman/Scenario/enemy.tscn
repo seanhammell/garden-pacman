@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://y27jmaahwhnr"]
+[gd_scene load_steps=24 format=3 uid="uid://y27jmaahwhnr"]
 
 [ext_resource type="Script" path="res://scripts/Enemymovement.cs" id="1_hee1d"]
+[ext_resource type="Texture2D" uid="uid://mlwkg4bai10u" path="res://art/venusspritesheet.png" id="3_4jjng"]
 [ext_resource type="Texture2D" uid="uid://6mwi4im5dfx4" path="res://art/Sprites.png" id="3_oarh4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y3rg6"]
@@ -26,6 +27,14 @@ region = Rect2(666, 285, 279, 285)
 atlas = ExtResource("3_oarh4")
 region = Rect2(952, 285, 279, 285)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_po3ur"]
+atlas = ExtResource("3_4jjng")
+region = Rect2(204, 434, 179, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbtu3"]
+atlas = ExtResource("3_4jjng")
+region = Rect2(35, 434, 177, 217)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_vtirn"]
 atlas = ExtResource("3_oarh4")
 region = Rect2(1, 281, 279, 281)
@@ -33,6 +42,38 @@ region = Rect2(1, 281, 279, 281)
 [sub_resource type="AtlasTexture" id="AtlasTexture_i4qmg"]
 atlas = ExtResource("3_oarh4")
 region = Rect2(280, 281, 279, 281)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7rmc"]
+atlas = ExtResource("3_4jjng")
+region = Rect2(620, 217, 220, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfy4d"]
+atlas = ExtResource("3_4jjng")
+region = Rect2(35, 217, 249, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xf1dh"]
+atlas = ExtResource("3_4jjng")
+region = Rect2(316, 217, 241, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6v63u"]
+atlas = ExtResource("3_4jjng")
+region = Rect2(40, 0, 248, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f26gm"]
+atlas = ExtResource("3_4jjng")
+region = Rect2(328, 0, 238, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r7i1"]
+atlas = ExtResource("3_4jjng")
+region = Rect2(602, 0, 226, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dkfw4"]
+atlas = ExtResource("3_4jjng")
+region = Rect2(566, 434, 177, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w87tu"]
+atlas = ExtResource("3_4jjng")
+region = Rect2(364, 434, 182, 217)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fdklx"]
 animations = [{
@@ -49,6 +90,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_po3ur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbtu3")
+}],
+"loop": true,
+"name": &"down_harmless",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vtirn")
 }, {
 "duration": 1.0,
@@ -56,6 +108,45 @@ animations = [{
 }],
 "loop": true,
 "name": &"forward",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7rmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfy4d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xf1dh")
+}],
+"loop": true,
+"name": &"left_harmless",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6v63u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f26gm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4r7i1")
+}],
+"loop": true,
+"name": &"right_harmless",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dkfw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w87tu")
+}],
+"loop": true,
+"name": &"up_harmless",
 "speed": 5.0
 }]
 
@@ -94,13 +185,12 @@ scale = Vector2(0.997555, 0.982456)
 shape = SubResource("RectangleShape2D_sbiwd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ok66l")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.075, 0.075)
 sprite_frames = SubResource("SpriteFrames_fdklx")
-animation = &"backward"
+animation = &"down_harmless"
 
 [connection signal="body_entered" from="BottomCollider" to="." method="OnBodyEntered"]
 [connection signal="body_entered" from="TopCollider" to="." method="OnBodyEntered"]

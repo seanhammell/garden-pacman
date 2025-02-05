@@ -4,7 +4,7 @@ using System;
 public partial class Scenario : Node2D
 {
 	private int _score;
-	private int _playerLives = 1;
+	private int _playerLives = 4;
 	public bool gameOver=false;
 	private Hud hud;
 	public void NewGame()

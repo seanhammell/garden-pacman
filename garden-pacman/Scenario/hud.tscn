@@ -11,7 +11,7 @@ offset_right = 40.0
 offset_bottom = 48.0
 theme_override_fonts/font = ExtResource("1_rbnb7")
 theme_override_font_sizes/font_size = 32
-text = "0"
+text = "Score: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -19,4 +19,6 @@ vertical_alignment = 1
 offset_top = 53.0
 offset_right = 57.0
 offset_bottom = 76.0
+theme_override_fonts/font = ExtResource("1_rbnb7")
+theme_override_font_sizes/font_size = 32
 text = "Lives: 3"

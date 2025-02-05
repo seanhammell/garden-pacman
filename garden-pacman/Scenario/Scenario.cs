@@ -29,6 +29,7 @@ public partial class Scenario : Node2D
 		else
 		{
 			GD.Print("Player Lost!");
+			NewGame();
 		}
 	}
 	

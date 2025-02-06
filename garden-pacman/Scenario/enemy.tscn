@@ -163,21 +163,18 @@ metadata/_edit_group_ = true
 
 [node name="BottomCollider" type="CollisionShape2D" parent="BottomCollider"]
 position = Vector2(-0.645161, 4.19353)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_y3rg6")
 
 [node name="TopCollider" type="Area2D" parent="."]
 
 [node name="TopCollider" type="CollisionShape2D" parent="TopCollider"]
 position = Vector2(-0.645161, -4.19355)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_eykj1")
 
 [node name="RightCollider" type="Area2D" parent="."]
 
 [node name="RightCollider" type="CollisionShape2D" parent="RightCollider"]
 position = Vector2(3.54839, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_htbyx")
 
 [node name="LeftCollider" type="Area2D" parent="."]
@@ -189,7 +186,6 @@ shape = SubResource("RectangleShape2D_sbiwd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.645161, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ok66l")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

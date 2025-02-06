@@ -22,6 +22,7 @@ animations = [{
 size = Vector2(102.4, 85.3333)
 
 [node name="PowerupPlayer" type="Area2D"]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_r8nbn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -235,7 +235,7 @@ scale = Vector2(3.75, 3.75)
 target_position = Vector2(0, 32)
 
 [node name="Player" parent="." instance=ExtResource("4_8e24s")]
-position = Vector2(782, 721)
+position = Vector2(778, 627)
 scale = Vector2(1.75, 1.75)
 rayLength = 4
 metadata/_edit_group_ = true
@@ -270,7 +270,7 @@ position = Vector2(304, -17)
 position = Vector2(283, 28)
 
 [node name="PowerupPlayer" parent="Items/PowerupPlayer" instance=ExtResource("6_bb63l")]
-position = Vector2(279, 21)
+position = Vector2(273.333, 19.3333)
 
 [node name="Enemy Powerup" parent="Items" instance=ExtResource("11_grok4")]
 position = Vector2(51, 51)

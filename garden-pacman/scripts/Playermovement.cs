@@ -7,7 +7,7 @@ public partial class Playermovement : CharacterBody2D
 	public delegate void DeathEventHandler();
 
 	[Export]
-	public float Speed = 5000.0f;
+	public float Speed = 10000.0f;
 	private float NormalSpeed;
 	private bool Powerup = false;
 	private Timer PowerupTimer;
@@ -115,7 +115,7 @@ public partial class Playermovement : CharacterBody2D
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		//GD.Print(Position);
+		GD.Print(Position); // 45-1500, 45-1330
 		Vector2 velocity = Velocity;
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		if (direction.X!=0)

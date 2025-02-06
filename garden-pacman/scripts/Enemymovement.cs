@@ -7,8 +7,8 @@ public partial class Enemymovement : CharacterBody2D
 {
 	[Export]
 	public float Speed { get; set; }
-	private float normalSpeed = 50f;
-	private float chaseSpeed = 100f;
+	private float normalSpeed = 100f;
+	private float chaseSpeed = 200f;
 	
 	public bool hasPowerUp { get; set; } = false;
 	

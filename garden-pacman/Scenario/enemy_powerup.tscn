@@ -4,19 +4,20 @@
 [ext_resource type="Texture2D" uid="uid://6mwi4im5dfx4" path="res://art/Sprites.png" id="2_eoxac"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lg14m"]
-size = Vector2(9.33332, 9.00002)
+size = Vector2(6.93333, 6.13333)
 
 [node name="Enemy Powerup" type="Area2D"]
+scale = Vector2(2.5, 2.5)
 script = ExtResource("1_dgffl")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(5.99999, -5.75001)
+position = Vector2(-0.4, -0.2)
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_lg14m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(7, -5)
+position = Vector2(0.8, -2.84217e-14)
 scale = Vector2(0.0657277, 0.0666667)
 texture = ExtResource("2_eoxac")
 hframes = 6

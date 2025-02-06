@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [display]
 
+window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="viewport"
 
@@ -54,4 +55,4 @@ reset={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.196078, 0.360784, 0.176471, 1)
+environment/defaults/default_clear_color=Color(0.22386, 0.264249, 0.124966, 1)

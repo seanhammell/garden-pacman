@@ -137,13 +137,13 @@ public partial class Enemymovement : CharacterBody2D
 		if (body == player) {
 			
 			if (hasPowerUp) {
-				player.Call("die");
+				player.Call("playerDie");
 				
 			}
 		}
 	}
 	
-	public void die()
+	public void enemyDie()
 	{
 		QueueFree();
 	}

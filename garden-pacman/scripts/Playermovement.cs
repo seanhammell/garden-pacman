@@ -31,10 +31,12 @@ public partial class Playermovement : CharacterBody2D
 
 	public void Reset()
 	{
-		Position = new Vector2(782, 721);
+		Position = new Vector2(778, 640);
 		PreviousPosition = new Vector2(Position.X, Position.Y);
 		NormalSpeed = Speed;
 		Velocity = new Vector2(0, 0);
+		GD.Print("Player Reset");
+		GD.Print(Position);
 	}
 
 	public override void _Ready()
@@ -43,7 +45,7 @@ public partial class Playermovement : CharacterBody2D
 		Reset();
 		gameManager = GetNode<Scenario>("/root/Scenario");
 		PowerupTimer = new Timer();
-		PowerupTimer.WaitTime = 5.0f;
+		PowerupTimer.WaitTime = 30.0f;
 		PowerupTimer.OneShot = true;
 		PowerupTimer.Timeout += OnPowerupTimeout;
 		AddChild(PowerupTimer);
@@ -71,10 +73,6 @@ public partial class Playermovement : CharacterBody2D
 
 
 	}
-	public void die()
-	{
-		QueueFree();
-	}
 	public void GetPowerup()
 	{
 		Speed *= 1.5f;
@@ -92,22 +90,28 @@ public partial class Playermovement : CharacterBody2D
 	
 	private void OnBodyEntered(Node body)
 	{
+		
+		if(body.Name=="Enemy")
+		{
+			GD.Print("Player Collided enemy");
+		}
 		if (body.HasMethod("die"))
 		{
+			GD.Print("Value of powerup: ",Powerup);
 			if (Powerup == true)
 			{
 				body.Call("die");
-
 			}
 		}
 	}
 	
-	public void Die()
+	public void die()
 	{
-		GD.Print("Player Died");
+		
 		gameManager.OnPlayerDeath();
 		if(gameManager.gameOver)
 		{
+			GD.Print("Player Died");
 			QueueFree();
 		}
 		
@@ -173,10 +177,6 @@ public partial class Playermovement : CharacterBody2D
 			velocity.Y = (float)Mathf.MoveToward(Velocity.Y, Velocity.Y, delta * Speed);
 		}
 
-		if(velocity != Vector2.Zero)
-		{
-			GD.Print(velocity);
-		}
 		
 		
 		Velocity = velocity;

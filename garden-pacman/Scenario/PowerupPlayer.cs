@@ -67,6 +67,7 @@ public partial class PowerupPlayer : Area2D
 		
 		if (body == player) {
 			// Hide powerup for timer duration
+			GD.Print("Powerup collected! - Called from powerup object");
 			isRespawning = true;
 			Hide();
 			respawn();

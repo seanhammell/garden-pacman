@@ -235,7 +235,7 @@ scale = Vector2(3.75, 3.75)
 target_position = Vector2(0, 32)
 
 [node name="Player" parent="." instance=ExtResource("4_8e24s")]
-position = Vector2(778, 627)
+position = Vector2(778, 640)
 scale = Vector2(1.75, 1.75)
 rayLength = 4
 metadata/_edit_group_ = true

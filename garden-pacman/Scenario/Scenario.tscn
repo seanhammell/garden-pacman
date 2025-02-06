@@ -291,19 +291,19 @@ position = Vector2(271, 785)
 position = Vector2(1296, 784)
 
 [node name="Pellets3" parent="Items" instance=ExtResource("13_cld4j")]
-position = Vector2(337, 195)
+position = Vector2(337, 205)
 
 [node name="Pellets2" parent="Items" instance=ExtResource("13_cld4j")]
-position = Vector2(364, 204)
+position = Vector2(367, 205)
 
 [node name="Pellets" parent="Items" instance=ExtResource("13_cld4j")]
-position = Vector2(398, 206)
+position = Vector2(399, 205)
 
 [node name="Pellets4" parent="Items" instance=ExtResource("13_cld4j")]
-position = Vector2(430, 210)
+position = Vector2(429, 205)
 
 [node name="Pellets5" parent="Items" instance=ExtResource("13_cld4j")]
-position = Vector2(457, 207)
+position = Vector2(463, 205)
 
 [node name="HUD" parent="." instance=ExtResource("10_8l2x4")]
 offset = Vector2(16, 0)

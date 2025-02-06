@@ -24,7 +24,8 @@ public partial class Playermovement : CharacterBody2D
 	private RayCast2D leftBottomCast;
 	
 	private Vector2 PreviousPosition;
-
+	private double powerupTimer;
+	public double PowerupDuration { get; set; } = 10.0;
 	private Scenario gameManager;
 	private AnimatedSprite2D animatedSprite;
 

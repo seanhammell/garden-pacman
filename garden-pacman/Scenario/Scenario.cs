@@ -46,9 +46,10 @@ public partial class Scenario : Node2D
 		public void OnPelletsTimerTimeout()
 	{
 		var PlayerNode = GetNode<CharacterBody2D>("Player");
-		var PelletsInstance = GetNode<Area2D>("Pellets");
-		PelletsInstance.GlobalPosition = PlayerNode.GlobalPosition;
-		GetTree().CurrentScene.AddChild(PelletsInstance);
+		 PackedScene pelletScene = (PackedScene)ResourceLoader.Load("res://Scenario/pellets.tscn");
+		Area2D pelletInstance = (Area2D)pelletScene.Instantiate();
+		pelletInstance.GlobalPosition = PlayerNode.GlobalPosition;
+		GetTree().CurrentScene.AddChild(pelletInstance);
 	}
 	
 	public void OnPlayerDeath()

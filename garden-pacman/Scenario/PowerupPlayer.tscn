@@ -1,7 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc06tkb3pjtud"]
+[gd_scene load_steps=6 format=3 uid="uid://dc06tkb3pjtud"]
 
 [ext_resource type="Script" path="res://Scenario/powerup_player.gd" id="1_r8nbn"]
-[ext_resource type="Texture2D" uid="uid://b011s4r5r1c5u" path="res://icon.svg" id="1_y0mlo"]
+[ext_resource type="Texture2D" uid="uid://xtk62p82am0y" path="res://art/Player Art/4_Seasons_Ground_Tiles.png.import.png" id="2_7yevj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndlug"]
+atlas = ExtResource("2_7yevj")
+region = Rect2(106, 190, 53, 91)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2rci0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndlug")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_whvx3"]
 size = Vector2(102.4, 85.3333)
@@ -9,10 +24,10 @@ size = Vector2(102.4, 85.3333)
 [node name="PowerupPlayer" type="Area2D"]
 script = ExtResource("1_r8nbn")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.75001, -3)
-scale = Vector2(0.105469, 0.09375)
-texture = ExtResource("1_y0mlo")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2.25, -2.75)
+scale = Vector2(0.254717, 0.236264)
+sprite_frames = SubResource("SpriteFrames_2rci0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, -3)

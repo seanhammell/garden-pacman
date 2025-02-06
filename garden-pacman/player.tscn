@@ -1,29 +1,93 @@
-[gd_scene load_steps=12 format=3 uid="uid://dvmjdr8po6cxo"]
+[gd_scene load_steps=19 format=3 uid="uid://dvmjdr8po6cxo"]
 
 [ext_resource type="Script" path="res://scripts/Playermovement.cs" id="1_3liyh"]
-[ext_resource type="Texture2D" uid="uid://b011s4r5r1c5u" path="res://icon.svg" id="2_epr3o"]
+[ext_resource type="Texture2D" uid="uid://xtk62p82am0y" path="res://art/Player Art/4_Seasons_Ground_Tiles.png.import.png" id="2_1kplf"]
 [ext_resource type="AudioStream" uid="uid://04j1ots1j4dw" path="res://sound/footstep/footstep_0.wav" id="3_w3tau"]
 [ext_resource type="AudioStream" uid="uid://3amc7gmips1u" path="res://sound/footstep/footstep_1.wav" id="4_u2sy1"]
 [ext_resource type="AudioStream" uid="uid://byurmw6ppdxkv" path="res://sound/footstep/footstep_2.wav" id="5_24c55"]
 [ext_resource type="AudioStream" uid="uid://cqf8xg35ngow1" path="res://sound/footstep/footstep_3.wav" id="6_uutnh"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h8ydj"]
-atlas = ExtResource("2_epr3o")
-region = Rect2(0, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8cfk"]
+atlas = ExtResource("2_1kplf")
+region = Rect2(46, 8, 46, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sv4pu"]
+atlas = ExtResource("2_1kplf")
+region = Rect2(0, 8, 46, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_geylc"]
+atlas = ExtResource("2_1kplf")
+region = Rect2(48, 130, 48, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayhue"]
+atlas = ExtResource("2_1kplf")
+region = Rect2(0, 130, 48, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh7b7"]
+atlas = ExtResource("2_1kplf")
+region = Rect2(0, 195, 48, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxvur"]
+atlas = ExtResource("2_1kplf")
+region = Rect2(48, 195, 48, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngyua"]
+atlas = ExtResource("2_1kplf")
+region = Rect2(46, 70, 46, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iclqf"]
+atlas = ExtResource("2_1kplf")
+region = Rect2(0, 70, 46, 62)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_is5vt"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h8ydj")
+"texture": SubResource("AtlasTexture_o8cfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sv4pu")
 }],
 "loop": true,
-"name": &"default",
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_geylc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ayhue")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uh7b7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nxvur")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngyua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iclqf")
+}],
+"loop": true,
+"name": &"up",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ghl8w"]
-size = Vector2(15, 14)
+size = Vector2(13, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0gnux"]
 size = Vector2(13, 12)
@@ -44,9 +108,11 @@ script = ExtResource("1_3liyh")
 rayLength = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0.499996, -1.00001)
-scale = Vector2(0.101563, 0.09375)
+position = Vector2(-9.53674e-07, -1)
+scale = Vector2(0.173914, 0.193548)
 sprite_frames = SubResource("SpriteFrames_is5vt")
+animation = &"down"
+frame_progress = 0.749849
 
 [node name="KillArea" type="Area2D" parent="."]
 
@@ -59,40 +125,40 @@ position = Vector2(0.5, -1)
 shape = SubResource("RectangleShape2D_0gnux")
 
 [node name="topRightCast" type="RayCast2D" parent="."]
-position = Vector2(8, -8)
+position = Vector2(7, -7)
 rotation = 3.14159
 target_position = Vector2(0, 15)
 
 [node name="topLeftCast" type="RayCast2D" parent="."]
-position = Vector2(-7, -8)
+position = Vector2(-6, -7)
 rotation = -3.14159
 target_position = Vector2(0, 15)
 
 [node name="bottomRightCast" type="RayCast2D" parent="."]
-position = Vector2(8, 6)
+position = Vector2(7, 5)
 target_position = Vector2(0, 15)
 
 [node name="bottomLeftCast" type="RayCast2D" parent="."]
-position = Vector2(-7, 6)
+position = Vector2(-6, 5)
 target_position = Vector2(0, 15)
 
 [node name="rightTopCast" type="RayCast2D" parent="."]
-position = Vector2(8, -8)
+position = Vector2(7, -7)
 rotation = -1.5708
 target_position = Vector2(0, 15)
 
 [node name="rightBottomCast" type="RayCast2D" parent="."]
-position = Vector2(8, 6)
+position = Vector2(7, 5)
 rotation = -1.5708
 target_position = Vector2(0, 15)
 
 [node name="leftTopCast" type="RayCast2D" parent="."]
-position = Vector2(-7, -8)
+position = Vector2(-6, -7)
 rotation = 1.5708
 target_position = Vector2(0, 15)
 
 [node name="leftBottomCast" type="RayCast2D" parent="."]
-position = Vector2(-7, 6)
+position = Vector2(-6, 5)
 rotation = 1.5708
 target_position = Vector2(0, 15)
 

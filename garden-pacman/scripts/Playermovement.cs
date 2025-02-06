@@ -26,10 +26,11 @@ public partial class Playermovement : CharacterBody2D
 	private Vector2 PreviousPosition;
 
 	private Scenario gameManager;
+	private AnimatedSprite2D animatedSprite;
 
 	public void Reset()
 	{
-		Position = new Vector2(256, 256);
+		Position = new Vector2(782, 721);
 		PreviousPosition = new Vector2(Position.X, Position.Y);
 		NormalSpeed = Speed;
 		Velocity = new Vector2(0, 0);
@@ -64,10 +65,8 @@ public partial class Playermovement : CharacterBody2D
 		rightBottomCast.TargetPosition = new Vector2(0, rayLength);
 		leftTopCast.TargetPosition = new Vector2(0, rayLength);
 		leftBottomCast.TargetPosition = new Vector2(0, rayLength);
-		GD.Print(topRightCast.TargetPosition);
-		GD.Print(leftTopCast.TargetPosition);
-		GD.Print(rightTopCast.TargetPosition);
-		GD.Print(leftBottomCast.TargetPosition);
+		
+		animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
 
 	}
@@ -115,9 +114,11 @@ public partial class Playermovement : CharacterBody2D
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		GD.Print(Position); // 45-1500, 45-1330
+
 		Vector2 velocity = Velocity;
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		
+		
 		if (direction.X!=0)
 		{
 			
@@ -140,6 +141,7 @@ public partial class Playermovement : CharacterBody2D
 			}
 			velocity.X = direction.X * Speed * (float)delta;
 			
+			
 		}
 		else
 		{
@@ -148,7 +150,6 @@ public partial class Playermovement : CharacterBody2D
 
 		if(direction.Y!=0)
 		{
-			
 			if (topRightCast.IsColliding() && topLeftCast.IsColliding())
 			{
 				if (direction.Y < 0)
@@ -171,10 +172,30 @@ public partial class Playermovement : CharacterBody2D
 			velocity.Y = (float)Mathf.MoveToward(Velocity.Y, Velocity.Y, delta * Speed);
 		}
 
-
+		if(velocity != Vector2.Zero)
+		{
+			GD.Print(velocity);
+		}
+		
+		
 		Velocity = velocity;
 		MoveAndSlide();
-		
+		if(velocity.X>0)
+		{
+			animatedSprite.Play("right");
+		}
+		else if(velocity.X<0)
+		{
+			animatedSprite.Play("left");
+		}
+		else if(velocity.Y>0)
+		{
+			animatedSprite.Play("down");
+		}
+		else if(velocity.Y<0)
+		{
+			animatedSprite.Play("up");
+		}
 		var footstep_timer = GetNode<Timer>("FootstepSound/Timer");
 		if ((Position - PreviousPosition).Length() > 1.0 && footstep_timer.IsStopped()) {
 			GetNode<AudioStreamPlayer>("FootstepSound").Play();

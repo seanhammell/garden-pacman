@@ -5,8 +5,9 @@ public partial class Scenario : Node2D
 {
 	private int _score;
 	private int _playerLives = 4;
-	public bool gameOver=false;
+	public bool gameOver = false;
 	private Hud hud;
+
 	public void NewGame()
 	{
 		GetNode<Timer>("ScoreTimer").Start();
@@ -19,6 +20,11 @@ public partial class Scenario : Node2D
 		player.Reset();
 	}
 
+	public bool IsGameOver()
+	{
+		return gameOver;
+	}
+
 	public void GameOver(bool playerWon)
 	{
 		gameOver = true;
@@ -29,8 +35,8 @@ public partial class Scenario : Node2D
 		else
 		{
 			GD.Print("Player Lost!");
-			NewGame();
 		}
+		GetTree().ChangeSceneToFile("res://Scenario/GameOverScreen.tscn");
 	}
 	
 	public void OnScoreTimerTimeout()
@@ -43,7 +49,7 @@ public partial class Scenario : Node2D
 		}
 	}
 
-		public void OnPelletsTimerTimeout()
+	public void OnPelletsTimerTimeout()
 	{
 		var PlayerNode = GetNode<CharacterBody2D>("Player");
 		 PackedScene pelletScene = (PackedScene)ResourceLoader.Load("res://Scenario/pellets.tscn");

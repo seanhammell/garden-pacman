@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cky425211k1qd" path="res://art/4_Seasons_Ground_Tiles.png" id="1_are6y"]
 [ext_resource type="PackedScene" uid="uid://y27jmaahwhnr" path="res://Scenario/enemy.tscn" id="3_fyxdw"]
 [ext_resource type="Texture2D" uid="uid://iwq123f1khy2" path="res://art/dirt tile.png" id="3_n6l3e"]
-[ext_resource type="PackedScene" path="res://Scenario/player.tscn" id="4_8e24s"]
+[ext_resource type="PackedScene" uid="uid://dvmjdr8po6cxo" path="res://Scenario/player.tscn" id="4_8e24s"]
 [ext_resource type="Texture2D" uid="uid://cdf8yn7rmggaj" path="res://art/leftfences.PNG" id="4_615ob"]
 [ext_resource type="Texture2D" uid="uid://dxd18aa8r5oik" path="res://art/fences1.PNG" id="4_pnkxm"]
 [ext_resource type="Texture2D" uid="uid://dh41m2rn3ged0" path="res://art/hedgetiles.png" id="5_bsjev"]
@@ -24,7 +24,7 @@
 [ext_resource type="AudioStream" uid="uid://bou051x4t3gka" path="res://sound/music_action.ogg" id="19_q4kxh"]
 [ext_resource type="Script" path="res://Scenario/Audio.cs" id="23_bgtj5"]
 [ext_resource type="PackedScene" uid="uid://cogy0im3do8c1" path="res://Scenario/greenhouse.tscn" id="24_8wk0s"]
-[ext_resource type="PackedScene" path="res://Scenario/PowerupPlayer2.tscn" id="26_sbfxx"]
+[ext_resource type="PackedScene" uid="uid://civpskf4sesjh" path="res://Scenario/PowerupPlayer2.tscn" id="26_sbfxx"]
 [ext_resource type="PackedScene" uid="uid://dc06tkb3pjtud" path="res://Scenario/PowerupPlayer.tscn" id="27_mocc8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_341uk"]
@@ -1066,6 +1066,8 @@ volume_db = -6.0
 
 [node name="Greenhouse" parent="." instance=ExtResource("24_8wk0s")]
 position = Vector2(657, 707)
+collision_layer = 8
+collision_mask = 0
 
 [node name="PowerupPlayer" parent="." instance=ExtResource("26_sbfxx")]
 position = Vector2(175, 590)

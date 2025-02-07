@@ -31,8 +31,8 @@ func respawn():
 	var items = get_node("/root/Scenario/Items")
 
 	while not valid_position:
-		new_pos_x = random.randi_range(32, 480)
-		new_pos_y = random.randi_range(32, 480)
+		new_pos_x = random.randi_range(50, 1260)
+		new_pos_y = random.randi_range(430, 800)
 		valid_position = true # Assume position is valid unless we find a conflict
 		
 		# Ensure it doesn't spawn in the greenhouse

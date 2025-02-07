@@ -4,7 +4,7 @@ extends CharacterBody2D
 var normal_speed: float = 100.0
 var chase_speed: float = 200.0
 
-var has_power_up: bool = true
+var has_power_up: bool = false
 
 var sprite: AnimatedSprite2D
 
@@ -25,7 +25,7 @@ var event_occurred: bool = false
 var event_timer: float = 0.0
 
 var powerup_timer: float = 0.0
-@export var powerup_duration: float = 7.0
+@export var PowerupDuration: float = 7.0
 
 var player: CharacterBody2D
 
@@ -73,13 +73,13 @@ func _process(delta):
 		powerup_timer += delta
 		speed = chase_speed
 		change_direction(direction)
-		if powerup_timer >= powerup_duration:
+		if powerup_timer >= PowerupDuration:
 			speed = normal_speed
 			has_power_up = false
 			powerup_timer = 0.0
 			get_node("/root/Scenario/Audio").enemy_power_down()
 	
-	if event_occurred and event_timer == 0 or is_wall(direction):
+	if (event_occurred and event_timer == 0 or is_wall(direction)):
 		var valid_moves = find_valid_moves()
 		var best_moves = find_player(valid_moves)
 		
@@ -98,7 +98,9 @@ func detect_change(previous_state, dir):
 	return false
 
 func _on_body_entered(body):
-	if body == player:
+	print("pp")
+	if body.name == 'Player':
+		print("hsf")
 		if has_power_up:
 			player.call("playerDie")
 
@@ -133,7 +135,7 @@ func find_valid_moves():
 	var opposite_direction = []
 
 	for i in range(4):
-		if abs(direction - i) == 2 and (not has_power_up or not player.call("HasPowerup")):
+		if abs(direction - i) == 2 and (not has_power_up):
 			opposite_direction.append(i)
 			continue
 		if not is_wall(i):
@@ -146,8 +148,8 @@ func is_wall(dir):
 
 func find_player(valid_moves):
 	var best_directions = []
-	var best_direction = valid_moves[randi() % valid_moves.size()]
-	var run_direction = valid_moves[randi() % valid_moves.size()]
+	var best_direction = direction if valid_moves.size() == 0 else valid_moves[randi() % valid_moves.size()]
+	var run_direction = direction if valid_moves.size() == 0 else valid_moves[randi() % valid_moves.size()]
 	
 	var pos_diff = player.position - position
 	

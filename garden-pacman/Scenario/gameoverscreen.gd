@@ -6,7 +6,7 @@ func _ready():
 	timer.autostart = true
 	timer.wait_time = 5.0
 	add_child(timer)
-	timer.connect("timeout", self, "_on_timer_timeout")
+	timer.connect("timeout", _on_timer_timeout())
 
 # Timer timeout handler
 func _on_timer_timeout():

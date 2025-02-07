@@ -37,6 +37,7 @@ func _on_score_timer_timeout():
 func on_player_death():
 	_player_lives -= 1
 	if _player_lives > 0:
+		print('new')
 		new_game()
 	else:
 		game_over(false)

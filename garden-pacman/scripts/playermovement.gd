@@ -3,7 +3,7 @@ extends CharacterBody2D
 signal death
 signal win
 
-@export var speed: float = 20000.0
+@export var speed: float = 7500.0
 var normal_speed: float
 var powerup: bool = false
 var powerup_timer: float = 0.0
@@ -76,11 +76,10 @@ func _on_body_entered(body):
 			body.call("enemy_die")
 			game_manager.on_player_win()
 
-func player_die():
+func playerDie():
 	game_manager.on_player_death()
 	if game_manager.game_over:
 		print("Player Died")
-		queue_free()
 
 func HasPowerup() -> bool:
 	return powerup

@@ -15,7 +15,7 @@ func _ready():
 func _process(delta: float):
 	if not visible and not is_respawning:
 		timer += delta
-		if timer >= int(enemy.get("PowerupDuration")):
+		if timer >= float(enemy.get("PowerupDuration")):
 			# Stop the chase & respawn the powerup
 			show()
 
@@ -50,12 +50,12 @@ func _on_Body_entered(body: Node2D):
 		respawn()
 	
 	# If the enemy eats it and it has been the proper amount of time since the last powerup
-	if body.name == 'Enemy' and timer >= int(enemy.get("PowerupDuration")):
+	if body.name == 'Enemy':
 		# Hide powerup for timer duration
 		is_respawning = true
 		hide()
 		respawn()
-		enemy.call("Powerup")
+		enemy.call("powerup")
 		start_timer()
 
 func start_timer():

@@ -194,7 +194,7 @@ sprite_frames = SubResource("SpriteFrames_fdklx")
 animation = &"left_harmless"
 frame_progress = 0.0784914
 
-[connection signal="body_entered" from="BottomCollider" to="." method="_on_body_entered"]
-[connection signal="body_entered" from="TopCollider" to="." method="_on_body_entered"]
-[connection signal="body_entered" from="RightCollider" to="." method="_on_body_entered"]
-[connection signal="body_entered" from="LeftCollider" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="BottomCollider" to="." method="OnBodyEntered"]
+[connection signal="body_entered" from="TopCollider" to="." method="OnBodyEntered"]
+[connection signal="body_entered" from="RightCollider" to="." method="OnBodyEntered"]
+[connection signal="body_entered" from="LeftCollider" to="." method="OnBodyEntered"]

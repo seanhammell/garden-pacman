@@ -215,7 +215,7 @@ sources/10 = SubResource("TileSetAtlasSource_dup0h")
 sources/2 = SubResource("TileSetAtlasSource_0ukgl")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p3m1s"]
-size = Vector2(152, 14)
+size = Vector2(41.5, 14)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xpum6"]
 random_pitch = 1.2
@@ -268,7 +268,7 @@ position = Vector2(389, 298)
 script = ExtResource("6_scrbu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightTP"]
-position = Vector2(903, 487)
+position = Vector2(921.75, 487)
 shape = SubResource("RectangleShape2D_p3m1s")
 
 [node name="GreenHouseTp" type="Area2D" parent="."]
@@ -284,7 +284,7 @@ position = Vector2(-4, 200)
 script = ExtResource("7_ar41n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftTP"]
-position = Vector2(21, 583)
+position = Vector2(-15.5, 583)
 shape = SubResource("RectangleShape2D_p3m1s")
 
 [node name="Enemy Powerup" parent="." instance=ExtResource("11_grok4")]
@@ -1086,10 +1086,10 @@ position = Vector2(1067, 500)
 [connection signal="body_entered" from="RightTP" to="RightTP" method="_on_body_entered"]
 [connection signal="body_entered" from="GreenHouseTp" to="GreenHouseTp" method="_on_body_entered"]
 [connection signal="body_entered" from="LeftTP" to="LeftTP" method="_on_body_entered"]
-[connection signal="body_entered" from="Enemy Powerup" to="Enemy Powerup" method="OnBodyEntered"]
-[connection signal="body_entered" from="Enemy Powerup3" to="Enemy Powerup3" method="OnBodyEntered"]
-[connection signal="body_entered" from="Enemy Powerup5" to="Enemy Powerup5" method="OnBodyEntered"]
-[connection signal="body_entered" from="Enemy Powerup6" to="Enemy Powerup6" method="OnBodyEntered"]
+[connection signal="body_entered" from="Enemy Powerup" to="Enemy Powerup" method="_on_Body_entered"]
+[connection signal="body_entered" from="Enemy Powerup3" to="Enemy Powerup3" method="_on_Body_entered"]
+[connection signal="body_entered" from="Enemy Powerup5" to="Enemy Powerup5" method="_on_Body_entered"]
+[connection signal="body_entered" from="Enemy Powerup6" to="Enemy Powerup6" method="_on_Body_entered"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
 [connection signal="timeout" from="PelletsTimer" to="." method="OnPelletsTimerTimeout"]
 [connection signal="timeout" from="Audio/Timer" to="Audio" method="OnTimerTimeout"]

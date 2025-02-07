@@ -40,8 +40,8 @@ public partial class EnemyPowerup : Area2D
 		Node items = GetNode<Node>("/root/Scenario/Items");
 
 		while (!validPosition) {
-			newPosX = random.Next(32, 480);
-			newPosY = random.Next(32, 480);
+			newPosX = random.Next(50, 1260);
+			newPosY = random.Next(430, 800);
 			validPosition = true; // Assume position is valid unless we find a conflict
 
 			// Ensure it doesn't spawn in the greenhouse

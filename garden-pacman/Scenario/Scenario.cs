@@ -43,14 +43,14 @@ public partial class Scenario : Node2D
 		}
 	}
 
-		public void OnPelletsTimerTimeout()
-	{
-		var PlayerNode = GetNode<CharacterBody2D>("Player");
-		 PackedScene pelletScene = (PackedScene)ResourceLoader.Load("res://Scenario/pellets.tscn");
-		Area2D pelletInstance = (Area2D)pelletScene.Instantiate();
-		pelletInstance.GlobalPosition = PlayerNode.GlobalPosition;
-		GetTree().CurrentScene.AddChild(pelletInstance);
-	}
+		//public void OnPelletsTimerTimeout()
+	//{
+		//var PlayerNode = GetNode<CharacterBody2D>("Player");
+		 //PackedScene pelletScene = (PackedScene)ResourceLoader.Load("res://Scenario/pellets.tscn");
+		//Area2D pelletInstance = (Area2D)pelletScene.Instantiate();
+		//pelletInstance.GlobalPosition = PlayerNode.GlobalPosition;
+		//GetTree().CurrentScene.AddChild(pelletInstance);
+	//	}
 	
 	public void OnPlayerDeath()
 	{
@@ -81,5 +81,11 @@ public partial class Scenario : Node2D
 		{
 			NewGame();
 		}
+		Node specificChild = GetChild(13);
+		if (specificChild.GetChildCount() == 0)
+		{
+			_score = 0;
+		}
+
 	}
 }

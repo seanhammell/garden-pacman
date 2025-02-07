@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://civpskf4sesjh"]
+
+[ext_resource type="Script" path="res://Scenario/powerup_player.gd" id="1_y11kx"]
+[ext_resource type="Texture2D" uid="uid://csuacu4gj70pd" path="res://art/Spray_gun.png" id="2_52nbx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_whvx3"]
+size = Vector2(170.666, 151.704)
+
+[node name="PowerupPlayer" type="Area2D"]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_y11kx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.333334, 2.78155e-07)
+scale = Vector2(0.136719, 0.140625)
+shape = SubResource("RectangleShape2D_whvx3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("2_52nbx")
+
+[node name="spawn_timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

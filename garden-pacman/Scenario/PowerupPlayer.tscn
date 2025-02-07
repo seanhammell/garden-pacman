@@ -35,4 +35,9 @@ position = Vector2(2, -3)
 scale = Vector2(0.136719, 0.140625)
 shape = SubResource("RectangleShape2D_whvx3")
 
+[node name="spawn_timer" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="spawn_timer" to="." method="_on_timer_timeout"]

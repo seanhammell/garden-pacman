@@ -87,6 +87,7 @@ public partial class Playermovement : CharacterBody2D
 	{
 		Speed = NormalSpeed;
 		Powerup = false;
+		GetNode<Audio>("../Audio").PowerupDropped();
 	}
 	
 	private void OnBodyEntered(Node2D body)

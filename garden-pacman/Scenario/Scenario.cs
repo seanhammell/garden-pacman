@@ -59,13 +59,14 @@ public partial class Scenario : Node2D
 		--_playerLives;
 		if(_playerLives>0)
 		{
+			hud.UpdateLives(_playerLives);
+			GetNode<AudioStreamPlayer>("Audio/PlantChompsPlayer").Play();
 			NewGame();
 		}
 		else
 		{
 			GameOver(playerWon);
 		}
-		hud.UpdateLives(_playerLives);
 	}
 	
 	public void OnPlayerWin()
@@ -78,6 +79,7 @@ public partial class Scenario : Node2D
 	public override void _Ready()
 	{
 		hud = GetNode<Hud>("HUD");
+		hud.UpdateLives(_playerLives);
 		NewGame();
 	}
 

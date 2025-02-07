@@ -66,6 +66,8 @@ public partial class Enemymovement : CharacterBody2D
 		changeDirection(0);
 		eventTimer = 0.0;
 		powerupTimer = 0.0;
+		
+		hasPowerUp = true;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

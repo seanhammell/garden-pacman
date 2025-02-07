@@ -3,6 +3,9 @@ using System;
 
 public partial class Audio : Node
 {
+	
+	private int powerup_type = 0; // 1 = spray, 2 = clippers
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -11,6 +14,7 @@ public partial class Audio : Node
 	
 	public void EnemyPowerUp() {
 		GetNode<AudioStreamPlayer>("MusicMain").Stop();
+		GetNode<AudioStreamPlayer>("PlantPowerUp").Play();
 		GetNode<Timer>("Timer").Start();
 	}
 	
@@ -23,9 +27,32 @@ public partial class Audio : Node
 		GetNode<AudioStreamPlayer>("MusicMain").Play();
 	}
 	
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		
+	public void PickUpSpray() {
+		powerup_type = 1;
+		GetNode<AudioStreamPlayer>("Spray").Play();
 	}
+	
+	public void PickUpClippers() {
+		powerup_type = 2;
+		GetNode<AudioStreamPlayer>("Clippers").Play();
+	}
+	
+	public void PowerupUsed() {
+		switch (powerup_type) {
+			case 1: GetNode<AudioStreamPlayer>("Spray").Play(); break;
+			case 2: GetNode<AudioStreamPlayer>("Clippers").Play(); break;
+			default: break;
+		}
+	}
+	
+	public void PowerupDropped() {
+		PowerupUsed();
+		powerup_type = 0;
+	}
+	
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	//public override void _Process(double delta)
+	//{
+		//
+	//}
 }

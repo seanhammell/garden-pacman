@@ -168,7 +168,7 @@ wait_time = 10.0
 
 [node name="FootstepSound" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_q41r8")
-volume_db = -12.0
+volume_db = -10.0
 playback_type = 2
 
 [node name="Timer" type="Timer" parent="FootstepSound"]

@@ -49,6 +49,8 @@ func _ready():
 	change_direction(0)
 	event_timer = 0.0
 	powerup_timer = 0.0
+	
+	#has_power_up = true
 
 func _process(delta):
 	var min_time = 0.3
@@ -98,9 +100,9 @@ func detect_change(previous_state, dir):
 	return false
 
 func _on_body_entered(body):
-	print("pp")
+	#print("pp")
 	if body.name == 'Player':
-		print("hsf")
+		#print("hsf")
 		if has_power_up:
 			player.call("playerDie")
 

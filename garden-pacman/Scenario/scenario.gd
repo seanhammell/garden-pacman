@@ -37,17 +37,19 @@ func _on_score_timer_timeout():
 func on_player_death():
 	_player_lives -= 1
 	if _player_lives > 0:
-		print('new')
+		#print('new')
+		hud.update_lives(_player_lives)
+		$Audio/PlantChompsPlayer.play()
 		new_game()
 	else:
 		game_over(false)
-	hud.update_lives(_player_lives)
 
 func on_player_win():
 	game_over(true)
 
 func _ready():
 	hud = get_node("HUD")
+	hud.update_lives(_player_lives)
 	new_game()
 
 func _process(delta):

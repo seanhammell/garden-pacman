@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cvs2mv0re8nn8"]
+[gd_scene load_steps=42 format=3 uid="uid://cvs2mv0re8nn8"]
 
 [ext_resource type="Texture2D" uid="uid://cky425211k1qd" path="res://art/4_Seasons_Ground_Tiles.png" id="1_are6y"]
 [ext_resource type="Script" path="res://Scenario/scenario.gd" id="1_baiou"]
@@ -20,14 +20,17 @@
 [ext_resource type="PackedScene" uid="uid://bvi2en06inq2o" path="res://Scenario/hud.tscn" id="10_8l2x4"]
 [ext_resource type="PackedScene" uid="uid://cem6qmbdtxod5" path="res://Scenario/enemy_powerup.tscn" id="11_grok4"]
 [ext_resource type="PackedScene" uid="uid://bfjj3kdoixya" path="res://Scenario/pellets.tscn" id="13_cld4j"]
-[ext_resource type="Script" path="res://Scenario/hud.gd" id="17_0rdgs"]
 [ext_resource type="Script" path="res://Scenario/audio.gd" id="17_ccm8s"]
 [ext_resource type="AudioStream" uid="uid://cqk0pn4giawm0" path="res://sound/music_main.ogg" id="18_bcid6"]
 [ext_resource type="AudioStream" uid="uid://bou051x4t3gka" path="res://sound/music_action.ogg" id="19_q4kxh"]
 [ext_resource type="PackedScene" uid="uid://cogy0im3do8c1" path="res://Scenario/greenhouse.tscn" id="24_8wk0s"]
-[ext_resource type="PackedScene" path="res://Scenario/PowerupPlayer2.tscn" id="26_sbfxx"]
+[ext_resource type="AudioStream" uid="uid://cmh0bamr4cq3o" path="res://sound/plant_power_up.wav" id="25_c2vma"]
+[ext_resource type="PackedScene" uid="uid://civpskf4sesjh" path="res://Scenario/PowerupPlayer2.tscn" id="26_sbfxx"]
+[ext_resource type="AudioStream" uid="uid://cfmc1tbgyq0vk" path="res://sound/plant_chomps_player.wav" id="26_xrito"]
 [ext_resource type="Script" path="res://Scenario/green_house_tp.gd" id="27_it0on"]
 [ext_resource type="PackedScene" uid="uid://dc06tkb3pjtud" path="res://Scenario/PowerupPlayer.tscn" id="27_mocc8"]
+[ext_resource type="AudioStream" uid="uid://dlobf5xscjrfh" path="res://sound/spray.wav" id="27_wjtxk"]
+[ext_resource type="AudioStream" uid="uid://dyn2f6goaiba5" path="res://sound/clippers.wav" id="28_7xidt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_341uk"]
 texture = ExtResource("1_are6y")
@@ -1045,7 +1048,6 @@ position = Vector2(977, 620)
 [node name="HUD" parent="." instance=ExtResource("10_8l2x4")]
 offset = Vector2(16, 0)
 transform = Transform2D(1, 0, 0, 1, 16, 0)
-script = ExtResource("17_0rdgs")
 
 [node name="ScoreTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -1070,17 +1072,32 @@ one_shot = true
 
 [node name="MunchSound" type="AudioStreamPlayer" parent="Audio"]
 stream = SubResource("AudioStreamRandomizer_xpum6")
+volume_db = -16.0
+
+[node name="PlantPowerUp" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("25_c2vma")
+volume_db = 2.0
+
+[node name="PlantChompsPlayer" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("26_xrito")
+
+[node name="Spray" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("27_wjtxk")
 volume_db = -6.0
+
+[node name="Clippers" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("28_7xidt")
+volume_db = -3.0
 
 [node name="Greenhouse" parent="." instance=ExtResource("24_8wk0s")]
 position = Vector2(657, 707)
 collision_layer = 8
 collision_mask = 0
 
-[node name="PowerupPlayer" parent="." instance=ExtResource("26_sbfxx")]
+[node name="PowerupPlayerSpray" parent="." instance=ExtResource("26_sbfxx")]
 position = Vector2(175, 590)
 
-[node name="PowerupPlayer2" parent="." instance=ExtResource("27_mocc8")]
+[node name="PowerupPlayerClippers" parent="." instance=ExtResource("27_mocc8")]
 position = Vector2(1067, 500)
 
 [connection signal="body_entered" from="RightTP" to="RightTP" method="_on_body_entered"]
@@ -1090,6 +1107,5 @@ position = Vector2(1067, 500)
 [connection signal="body_entered" from="Enemy Powerup3" to="Enemy Powerup3" method="_on_Body_entered"]
 [connection signal="body_entered" from="Enemy Powerup5" to="Enemy Powerup5" method="_on_Body_entered"]
 [connection signal="body_entered" from="Enemy Powerup6" to="Enemy Powerup6" method="_on_Body_entered"]
-[connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
-[connection signal="timeout" from="PelletsTimer" to="." method="OnPelletsTimerTimeout"]
-[connection signal="timeout" from="Audio/Timer" to="Audio" method="OnTimerTimeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="Audio/Timer" to="Audio" method="on_timer_timeout"]

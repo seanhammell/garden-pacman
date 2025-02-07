@@ -60,8 +60,8 @@ func GetPowerup():
 	speed *= 1.5
 	powerup = true
 	powerup_timer = 0.0
-	print("powerup")
-	print(powerup)
+	#print("powerup")
+	#print(powerup)
 
 func _process(delta):
 	if powerup:
@@ -69,6 +69,7 @@ func _process(delta):
 		if powerup_timer >= powerup_duration:
 			speed = normal_speed
 			powerup = false
+			$/root/Scenario/Audio.powerup_dropped()
 
 func _on_body_entered(body):
 	if body.has_method("enemy_die"):

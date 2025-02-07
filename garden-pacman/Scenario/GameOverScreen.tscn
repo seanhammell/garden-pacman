@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://gxvi6w0rmpax"]
+[gd_scene load_steps=6 format=3 uid="uid://gxvi6w0rmpax"]
 
-[ext_resource type="Script" path="res://Scenario/GameOverScreen.cs" id="1_0eoap"]
+[ext_resource type="Script" path="res://Scenario/gameoverscreen.gd" id="1_0eoap"]
 [ext_resource type="FontFile" uid="uid://bfcgry5p6nehw" path="res://font/DotGothic16-Regular.ttf" id="1_4b7cx"]
 [ext_resource type="Texture2D" uid="uid://hlo1rpbyjd6p" path="res://art/title_screen.PNG" id="2_qdsi7"]
 [ext_resource type="AudioStream" uid="uid://cqk0pn4giawm0" path="res://sound/music_main.ogg" id="4_evxm5"]
+[ext_resource type="AudioStream" uid="uid://2kgo0pwxskbj" path="res://sound/plant_death.wav" id="5_cggu1"]
 
 [node name="GameOverScreen" type="Control"]
 layout_mode = 3
@@ -35,3 +36,7 @@ vertical_alignment = 1
 stream = ExtResource("4_evxm5")
 autoplay = true
 bus = &"Music"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_cggu1")
+autoplay = true

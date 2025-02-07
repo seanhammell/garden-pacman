@@ -13,10 +13,18 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
+		if !spawn_timer.is_stopped():
+			return
+		
 		body.GetPowerup()
+		
+		if self.name == "PowerupPlayerSpray":
+			$/root/Scenario/Audio.pick_up_spray()
+		else:
+			$/root/Scenario/Audio.pick_up_clippers()
+		
 		hide()
 		spawn_timer.start()
-		
 
 
 func _on_timer_timeout() -> void:

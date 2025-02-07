@@ -209,10 +209,10 @@ public partial class Enemymovement : CharacterBody2D
 
 		// Go through every direction and determine if that direction is open or a wall
 		for (var i = 0; i < 4; i++) {
-			//if (Math.Abs(direction-i) == 2) { 
-				//oppositeDirection.Add(i); // Detect which direction is backwards and don't include it in valid moves
-				//continue;
-			//}
+			if (Math.Abs(direction-i) == 2 && (!hasPowerUp || !(bool)player.Call("HasPowerup"))) { 
+				oppositeDirection.Add(i); // Detect which direction is backwards and don't include it in valid moves
+				continue;
+			}
 			if (!isWall(i)) {
 				// If there isn't a wall in that direction, mark it as valid
 				directions.Add(i);

@@ -1,10 +1,10 @@
-[gd_scene load_steps=38 format=3 uid="uid://cvs2mv0re8nn8"]
+[gd_scene load_steps=39 format=3 uid="uid://cvs2mv0re8nn8"]
 
-[ext_resource type="Script" path="res://Scenario/Scenario.cs" id="1_6ttwj"]
 [ext_resource type="Texture2D" uid="uid://cky425211k1qd" path="res://art/4_Seasons_Ground_Tiles.png" id="1_are6y"]
+[ext_resource type="Script" path="res://Scenario/scenario.gd" id="1_baiou"]
 [ext_resource type="PackedScene" uid="uid://y27jmaahwhnr" path="res://Scenario/enemy.tscn" id="3_fyxdw"]
 [ext_resource type="Texture2D" uid="uid://iwq123f1khy2" path="res://art/dirt tile.png" id="3_n6l3e"]
-[ext_resource type="PackedScene" path="res://Scenario/player.tscn" id="4_8e24s"]
+[ext_resource type="PackedScene" uid="uid://dvmjdr8po6cxo" path="res://Scenario/player.tscn" id="4_8e24s"]
 [ext_resource type="Texture2D" uid="uid://cdf8yn7rmggaj" path="res://art/leftfences.PNG" id="4_615ob"]
 [ext_resource type="Texture2D" uid="uid://dxd18aa8r5oik" path="res://art/fences1.PNG" id="4_pnkxm"]
 [ext_resource type="Texture2D" uid="uid://dh41m2rn3ged0" path="res://art/hedgetiles.png" id="5_bsjev"]
@@ -20,10 +20,11 @@
 [ext_resource type="PackedScene" uid="uid://bvi2en06inq2o" path="res://Scenario/hud.tscn" id="10_8l2x4"]
 [ext_resource type="PackedScene" uid="uid://cem6qmbdtxod5" path="res://Scenario/enemy_powerup.tscn" id="11_grok4"]
 [ext_resource type="PackedScene" uid="uid://bfjj3kdoixya" path="res://Scenario/pellets.tscn" id="13_cld4j"]
+[ext_resource type="Script" path="res://Scenario/hud.gd" id="17_0rdgs"]
+[ext_resource type="Script" path="res://Scenario/audio.gd" id="17_ccm8s"]
 [ext_resource type="AudioStream" uid="uid://cqk0pn4giawm0" path="res://sound/music_main.ogg" id="18_bcid6"]
 [ext_resource type="AudioStream" uid="uid://bou051x4t3gka" path="res://sound/music_action.ogg" id="19_q4kxh"]
-[ext_resource type="Script" path="res://Scenario/Audio.cs" id="23_bgtj5"]
-[ext_resource type="PackedScene" path="res://Scenario/greenhouse.tscn" id="24_8wk0s"]
+[ext_resource type="PackedScene" uid="uid://cogy0im3do8c1" path="res://Scenario/greenhouse.tscn" id="24_8wk0s"]
 [ext_resource type="PackedScene" path="res://Scenario/PowerupPlayer2.tscn" id="26_sbfxx"]
 [ext_resource type="Script" path="res://Scenario/green_house_tp.gd" id="27_it0on"]
 [ext_resource type="PackedScene" uid="uid://dc06tkb3pjtud" path="res://Scenario/PowerupPlayer.tscn" id="27_mocc8"]
@@ -226,7 +227,7 @@ stream_3/stream = ExtResource("8_f2cwr")
 stream_4/stream = ExtResource("9_p5tdo")
 
 [node name="Scenario" type="Node2D"]
-script = ExtResource("1_6ttwj")
+script = ExtResource("1_baiou")
 
 [node name="TileMap3" type="TileMap" parent="."]
 z_index = -2
@@ -256,9 +257,7 @@ scale = Vector2(3.75, 3.75)
 target_position = Vector2(0, 32)
 
 [node name="Player" parent="." instance=ExtResource("4_8e24s")]
-position = Vector2(654, 703)
-scale = Vector2(1.75, 1.75)
-rayLength = 0
+position = Vector2(658, 689)
 metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -1046,6 +1045,7 @@ position = Vector2(977, 620)
 [node name="HUD" parent="." instance=ExtResource("10_8l2x4")]
 offset = Vector2(16, 0)
 transform = Transform2D(1, 0, 0, 1, 16, 0)
+script = ExtResource("17_0rdgs")
 
 [node name="ScoreTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -1054,7 +1054,7 @@ wait_time = 0.1
 wait_time = 10.0
 
 [node name="Audio" type="Node" parent="."]
-script = ExtResource("23_bgtj5")
+script = ExtResource("17_ccm8s")
 
 [node name="MusicMain" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("18_bcid6")

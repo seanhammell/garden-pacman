@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://dvmjdr8po6cxo"]
 
-[ext_resource type="Script" path="res://scripts/Playermovement.cs" id="1_3liyh"]
+[ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_hwx5d"]
 [ext_resource type="Texture2D" uid="uid://xtk62p82am0y" path="res://art/Player Art/4_Seasons_Ground_Tiles.png.import.png" id="2_1kplf"]
 [ext_resource type="AudioStream" uid="uid://04j1ots1j4dw" path="res://sound/footstep/footstep_0.wav" id="3_w3tau"]
 [ext_resource type="AudioStream" uid="uid://3amc7gmips1u" path="res://sound/footstep/footstep_1.wav" id="4_u2sy1"]
@@ -104,8 +104,9 @@ stream_3/stream = ExtResource("6_uutnh")
 [node name="Player" type="CharacterBody2D"]
 z_index = 7
 position = Vector2(389, 138)
-script = ExtResource("1_3liyh")
-rayLength = 5
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_hwx5d")
+ray_length = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0.999999, -9)

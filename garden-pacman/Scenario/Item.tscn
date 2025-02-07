@@ -1,13 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://beftj6q5excl1"]
+[gd_scene load_steps=3 format=3 uid="uid://beftj6q5excl1"]
 
-[ext_resource type="Script" path="res://scripts/Item.cs" id="1_7fr2y"]
 [ext_resource type="Texture2D" uid="uid://5efvvkptrvmr" path="res://art/item.png" id="1_bplyt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uepbg"]
 radius = 5.09902
 
 [node name="Item" type="Area2D"]
-script = ExtResource("1_7fr2y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

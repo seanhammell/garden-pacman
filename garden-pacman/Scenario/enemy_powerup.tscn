@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cem6qmbdtxod5"]
 
-[ext_resource type="Script" path="res://scripts/EnemyPowerup.cs" id="1_dgffl"]
+[ext_resource type="Script" path="res://scripts/enemypowerup.gd" id="1_66f37"]
 [ext_resource type="Texture2D" uid="uid://6mwi4im5dfx4" path="res://art/Sprites.png" id="2_eoxac"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lg14m"]
@@ -8,7 +8,7 @@ size = Vector2(6.93333, 6.13333)
 
 [node name="Enemy Powerup" type="Area2D"]
 scale = Vector2(2.5, 2.5)
-script = ExtResource("1_dgffl")
+script = ExtResource("1_66f37")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

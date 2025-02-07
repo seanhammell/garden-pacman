@@ -10,7 +10,7 @@ public partial class Playermovement : CharacterBody2D
 	public delegate void WinEventHandler();
 
 	[Export]
-	public float Speed = 10000.0f;
+	public float Speed = 5000.0f;
 	private float NormalSpeed;
 	public bool Powerup = false;
 	private Timer PowerupTimer;

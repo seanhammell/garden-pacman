@@ -32,8 +32,8 @@ public partial class EnemyPowerup : Area2D
 		// Respawn the powerup at a random valid place
 		Hide();
 		Random random = new Random();
-		float newPosX = random.Next(45, 1500);
-		float newPosY = random.Next(45, 1330);
+		float newPosX = random.Next(50, 1260);
+		float newPosY = random.Next(430, 800);
 		bool validPosition = false;
 		
 		// Get the parent node containing all items

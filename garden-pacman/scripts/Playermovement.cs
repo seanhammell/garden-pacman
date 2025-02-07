@@ -9,7 +9,7 @@ public partial class Playermovement : CharacterBody2D
 	[Export]
 	public float Speed = 10000.0f;
 	private float NormalSpeed;
-	private bool Powerup = false;
+	public bool Powerup = false;
 	private Timer PowerupTimer;
 	private Area2D KillArea;
 	[Export]
@@ -25,7 +25,7 @@ public partial class Playermovement : CharacterBody2D
 	
 	private Vector2 PreviousPosition;
 	private double powerupTimer;
-	public double PowerupDuration { get; set; } = 10.0;
+	public double PowerupDuration { get; set; } = 7.0;
 	private Scenario gameManager;
 	private AnimatedSprite2D animatedSprite;
 
@@ -43,7 +43,7 @@ public partial class Playermovement : CharacterBody2D
 		Reset();
 		gameManager = GetNode<Scenario>("/root/Scenario");
 		PowerupTimer = new Timer();
-		PowerupTimer.WaitTime = 30.0f;
+		PowerupTimer.WaitTime = 5.0f;
 		PowerupTimer.OneShot = true;
 		PowerupTimer.Timeout += OnPowerupTimeout;
 		AddChild(PowerupTimer);
@@ -111,6 +111,10 @@ public partial class Playermovement : CharacterBody2D
 			QueueFree();
 		}
 		
+	}
+	
+	public bool HasPowerup() {
+		return Powerup;
 	}
 	
 	public override void _PhysicsProcess(double delta)

@@ -34,7 +34,7 @@ public partial class Enemymovement : CharacterBody2D
 	
 	// Powerup timer
 	private double powerupTimer;
-	public double PowerupDuration { get; set; } = 10.0;
+	public double PowerupDuration { get; set; } = 5.0;
 	
 	// Player reference
 	private CharacterBody2D player;
@@ -97,10 +97,10 @@ public partial class Enemymovement : CharacterBody2D
 		if (hasPowerUp) {
 			powerupTimer += delta;
 			Speed = chaseSpeed;
+			changeDirection(direction);
 			if (powerupTimer >= PowerupDuration) {
 				Speed = normalSpeed;
 				hasPowerUp = false;
-				changeDirection(direction);
 				powerupTimer = 0.0;
 				GetNode<Audio>("../Audio").EnemyPowerDown();
 			}
@@ -111,11 +111,14 @@ public partial class Enemymovement : CharacterBody2D
 			// Check surroundings for walls and determine all possible directions of movement
 			List<int> validMoves = findValidMoves();
 			Random random = new Random(); // Initialize a random generator
+			List<int> bestMoves = findPlayer(validMoves);
 			
 			if (hasPowerUp) { // If the enemy has the powerup, chase the player
-				List<int> bestMoves = findPlayer(validMoves);
-				changeDirection(bestMoves.Count > 0 ? bestMoves[random.Next(bestMoves.Count)] : validMoves[random.Next(validMoves.Count)]);
-			} else { // Otherwise, randomly move
+				changeDirection(bestMoves[0]);
+			} else if ((bool)player.Call("HasPowerup")) { // If player has powerup, run away
+				GD.Print("run");
+				changeDirection(bestMoves[1]);
+			} else {
 				changeDirection(validMoves[random.Next(validMoves.Count)]);
 			}
 		}
@@ -206,10 +209,10 @@ public partial class Enemymovement : CharacterBody2D
 
 		// Go through every direction and determine if that direction is open or a wall
 		for (var i = 0; i < 4; i++) {
-			if (Math.Abs(direction-i) == 2) { 
-				oppositeDirection.Add(i); // Detect which direction is backwards and don't include it in valid moves
-				continue;
-			}
+			//if (Math.Abs(direction-i) == 2) { 
+				//oppositeDirection.Add(i); // Detect which direction is backwards and don't include it in valid moves
+				//continue;
+			//}
 			if (!isWall(i)) {
 				// If there isn't a wall in that direction, mark it as valid
 				directions.Add(i);
@@ -228,32 +231,57 @@ public partial class Enemymovement : CharacterBody2D
 	private List<int> findPlayer(List<int> validMoves) {
 		// Returns the best direction to go to find the player
 		List<int> bestDirections = new List<int>();
+		Random random = new Random(); // Initialize a random generator
+		int bestDirection = validMoves[random.Next(validMoves.Count)];
+		int runDirection = validMoves[random.Next(validMoves.Count)];
 		
 		// Find the difference between the player and enemy positions
 		Vector2 posDifference = player.Position - Position;
 		
-		// Determine if the player is to the right or left
-		if (posDifference[0] > 10) {
-			if (validMoves.Contains(0) || Math.Abs(direction-0) == 2) { // if right is a valid move or it's the opposite direction
-				bestDirections.Add(0);
-			}
-		} else if (posDifference[0] < -10) {
-			if (validMoves.Contains(2) || Math.Abs(direction-0) == 2) { // if left is a valid move or it's the opposite direction
-				bestDirections.Add(2);
-			}
-		}
-	
-		
 		// Determine if the player is up or down
-		if (posDifference[1] > 10) {
-			if (validMoves.Contains(3) || Math.Abs(direction-0) == 2) { // if down is a valid move or it's the opposite direction
-				bestDirections.Add(3);
+		if (posDifference[1] > 0) {
+			if (validMoves.Contains(3)) { // if down is a valid move or it's the opposite direction
+				bestDirection = 3;
 			}
-		} else if (posDifference[1] < -10) {
-			if (validMoves.Contains(1) || Math.Abs(direction-0) == 2) { // if up is a valid move or it's the opposite direction
-				bestDirections.Add(1);
+			if (validMoves.Contains(1)) {
+				runDirection = 1;
+			}
+		} else if (posDifference[1] < 0) {
+			if (validMoves.Contains(1)) { // if up is a valid move or it's the opposite direction
+				bestDirection = 1;
+			}
+			if (validMoves.Contains(3)) {
+				runDirection = 3;
 			}
 		}
+		
+		// Determine if the player is to the right or left
+		if (Math.Abs(posDifference[0]) > Math.Abs(posDifference[1])) {
+			if (posDifference[0] > 0) {
+				if (validMoves.Contains(0)) { // if right is a valid move or it's the opposite direction
+					bestDirection = 0;
+				}
+			} else if (posDifference[0] < 0) {
+				if (validMoves.Contains(2)) { // if left is a valid move or it's the opposite direction
+					bestDirection = 2;
+				}
+			}
+		} 
+		
+		if (Math.Abs(posDifference[0]) < Math.Abs(posDifference[1])) {
+			if (posDifference[0] > 0) {
+				if (validMoves.Contains(2)) {
+					runDirection = 2;
+				}
+			} else if (posDifference[0] < 0) {
+				if (validMoves.Contains(0)) {
+					runDirection = 0;
+				}
+			}
+		} 
+		
+		bestDirections.Add(bestDirection);
+		bestDirections.Add(runDirection);
 		
 		return bestDirections;
 	}

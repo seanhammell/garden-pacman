@@ -6,6 +6,9 @@ public partial class Playermovement : CharacterBody2D
 	[Signal]
 	public delegate void DeathEventHandler();
 
+	[Signal]
+	public delegate void WinEventHandler();
+
 	[Export]
 	public float Speed = 10000.0f;
 	private float NormalSpeed;
@@ -97,6 +100,7 @@ public partial class Playermovement : CharacterBody2D
 			if (Powerup == true)
 			{
 				body.Call("enemyDie");
+				gameManager.OnPlayerWin();
 			}
 		}
 	}

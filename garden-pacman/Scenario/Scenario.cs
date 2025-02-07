@@ -20,11 +20,6 @@ public partial class Scenario : Node2D
 		player.Reset();
 	}
 
-	public bool IsGameOver()
-	{
-		return gameOver;
-	}
-
 	public void GameOver(bool playerWon)
 	{
 		gameOver = true;
@@ -71,6 +66,12 @@ public partial class Scenario : Node2D
 			GameOver(playerWon);
 		}
 		hud.UpdateLives(_playerLives);
+	}
+	
+	public void OnPlayerWin()
+	{
+		const bool playerWon = true;
+		GameOver(playerWon);
 	}
 
 	// Called when the node enters the scene tree for the first time.

@@ -16,8 +16,8 @@ size = Vector2(1.93548, 6.45161)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sbiwd"]
 size = Vector2(1.94023, 6.56681)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ok66l"]
-size = Vector2(5.16129, 5.16128)
+[sub_resource type="CircleShape2D" id="CircleShape2D_x6kme"]
+radius = 2.58064
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l27yj"]
 atlas = ExtResource("3_oarh4")
@@ -152,7 +152,7 @@ animations = [{
 
 [node name="Enemy" type="CharacterBody2D"]
 z_index = 7
-position = Vector2(-7, 129)
+position = Vector2(-7, 127)
 scale = Vector2(1.55, 1.55)
 collision_layer = 3
 collision_mask = 3
@@ -186,13 +186,14 @@ shape = SubResource("RectangleShape2D_sbiwd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.645161, 0)
-shape = SubResource("RectangleShape2D_ok66l")
+shape = SubResource("CircleShape2D_x6kme")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-0.645161, 0.32258)
-scale = Vector2(0.0360425, 0.0267578)
+position = Vector2(-0.645161, -1.93548)
+scale = Vector2(0.04, 0.04)
 sprite_frames = SubResource("SpriteFrames_fdklx")
-animation = &"right_harmless"
+animation = &"left_harmless"
+frame_progress = 0.0784914
 
 [connection signal="body_entered" from="BottomCollider" to="." method="OnBodyEntered"]
 [connection signal="body_entered" from="TopCollider" to="." method="OnBodyEntered"]

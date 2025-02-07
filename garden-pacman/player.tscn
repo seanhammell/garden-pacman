@@ -89,8 +89,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ghl8w"]
 size = Vector2(15, 14)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0gnux"]
-size = Vector2(13, 12)
+[sub_resource type="CircleShape2D" id="CircleShape2D_53upx"]
+radius = 6.5
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_q41r8"]
 random_pitch = 1.2
@@ -108,11 +108,11 @@ script = ExtResource("1_3liyh")
 rayLength = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-9.53674e-07, -6)
-scale = Vector2(0.3, 0.335)
+position = Vector2(0.999999, -9)
+scale = Vector2(0.4, 0.447)
 sprite_frames = SubResource("SpriteFrames_is5vt")
 animation = &"down"
-frame_progress = 0.198486
+frame_progress = 0.623283
 
 [node name="KillArea" type="Area2D" parent="."]
 
@@ -122,7 +122,7 @@ shape = SubResource("RectangleShape2D_ghl8w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -1)
-shape = SubResource("RectangleShape2D_0gnux")
+shape = SubResource("CircleShape2D_53upx")
 
 [node name="topRightCast" type="RayCast2D" parent="."]
 position = Vector2(7, -7)
